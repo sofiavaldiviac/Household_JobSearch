@@ -1,0 +1,330 @@
+
+\documentclass{article}
+\usepackage{graphicx} 
+\usepackage{amsmath, mathtools, mathrsfs, mathdots}
+\usepackage{bm, amssymb, bbm}
+\usepackage{xcolor}
+\usepackage[usenames,dvipsnames]{color}
+%\usepackage[letterpaper]{geometry}
+
+\title{Model}
+\date{December 2025}
+\begin{document}
+\section{Model}
+
+\subsection*{Environment}
+Time is continuous and infinite. The household is a unitary decision-maker consisting of two spouses $i\in\{m,f\}$ who maximize expected discounted lifetime utility \begin{equation*}
+    V_0=E_0\left[\int_0^\infty e^{\rho t}u(c_t)dt\right]
+\end{equation*} where $\rho$ is the common subjective discount rate, $u(c_t)$ is the instantaneous utility from household consumption (with $u'(c)>0,\ u''(c)<0$), and $c_t$ is the household public consumption (assuming perfect pooling within marriage). 
+
+Each spouse $i$ can be in one of two employment states, employed $(l_i=1)$ or unemployed $(l_i=0)$. The employed earn a wage $w_i$ and face an exogenous job destruction rate $\delta_i$. They participate in on-the-job search where they receive offers at rate $\gamma_i<\lambda_i$ and incur a search cost of $\kappa(s_i)$. The functional form we assume for the search cost follows from \cite{10.1093/restud/rds042} and \cite{WANG2019165}, \begin{align*}
+    \kappa(s_i)=\kappa_0\cdot s_i^{\kappa_1},\quad \kappa_1>1, \quad \kappa_0 >0
+\end{align*} where $s_i$ is the search intensity. This functional form captures the diminishing returns to search effort. The unemployed receive an unemployment benefit $b_i$ and search for jobs with a job offer arrival (Poisson) rate $\lambda_i$, drawn from the distribution $F_i(w)$ with support $[\underline{w}_i,\overline{w}_i]$. 
+
+The household budget constraint takes the form \begin{equation*}
+    c_t+a_{t+1}=(1+r)a_t+y_t
+\end{equation*} where the household income is \begin{equation*}
+    y_t=w_m\cdot\mathbf{1}\{l_m=1\}+w_f\cdot\mathbf{1}\{l_f=1\}+b_m\cdot\mathbf{1}\{l_m=0\}+b_f\cdot\mathbf{1}\{l_f=0\}.
+\end{equation*}
+Couples can save in a joint account $a^J$, and/or in their individual accounts $a_i$. Both type of accounts have the same risk-free rate of return $r$. The total household assets are therefore $a=a^J+a_f+a_m$. However, divorce arrives at an exogenous rate $\pi$, and the couple is subject to one of two matrimonial property regimes—universal community property or limited community property, $\theta\in\{U,L\}$. Under universal community property, it doesn't matter which account they save in, since all assets, pre-marital or otherwise, are divided equally upon divorce. In this case, we assume the couple saves in $a^J$. Under limited property, all assets accumulated prior to marriage remain separate property, and all those accumulated after marriage are joint; however, inheritance and gifts are considered separate property even if received during marriage, so long as they remain in an individual account and are not commingled (mixed with joint funds, used for joint expenses, or placed in a shared account). Let wealth shocks arrive at exogenous probability $\mu_i$, where wealth $z$ is drawn from a distribution $G_i(z)$. Universal community property was the default regime in the Netherlands until 2018, at which time the default changed to limited community property. 
+
+
+\subsection*{Value Functions}
+The household's state is described by $(w_m, w_f, a^J, a_m, a_f, l_m, l_f, \theta)$ where $w_i$ are wages, $a^J$ are the joint household assets, $a_i$ are individual assets, $l_i$ are employment, and $\theta$ is the marital property regime. Largely following \cite{GULER2012352} and \cite{pilossoph_wee}, there are three cases to consider:
+
+
+\subsubsection*{Case 1. Dual-Unemployed, $l_m = l_f = 0$}
+The household's state is described by $(a^J, a_m, a_f,\theta)$ where $a^J$ are the joint household assets, $a_i$ are individual assets, $l_i$ are employment, and $\theta$ is the marital property regime.  The value function $U(b_m,b_f,a^J, a_m, a_f,\theta)$ satisfies
+\begin{align*}
+    \rho U(\cdot)= \max_c\bigg\{&u(c)+\lambda_m\int_{\underline{w}}^{\overline{w}}\max\big\{W_m(w,b_f,a^J,a_m,a_f,\theta)-U(\cdot),0\big\}dF_m(w)\\&+\lambda_f\int_{\underline{w}}^{\overline{w}}\max\big\{W_f(b_m,w,a^J,a_m,a_f,\theta)-U(\cdot),0\big\}dF_f(w)\\&+\mu_m\int\big[U(b_m,b_f,a^J,a_m+z,a_f,\theta)-U(\cdot)\big]dG_m(z)\\&+\mu_f\int\big[U(b_m,b_f,a^J,a_m,a_f+z,\theta)-U(\cdot)\big]dG_f(z)\\&+\pi\left[V_m^D(\cdot)+V_f^D(\cdot)-U(\cdot)\right] + [ra + y - c]U_a(\cdot) \bigg\}.
+\end{align*}
+
+% the value of the wealth shock can be distributed according to G()
+Wealth shocks arrive at rate $\mu_i$, and divorce arrives at rate $\pi$. $y$ will be equal to $b_m+ b_f$. Reservation wages $w_i^R$ are such that $W_i(w_i^R,b_i,a^J,a_m,a_f,\theta)=U(b_m,b_f,a^J,a_m,a_f,\theta)$ and are determined in equilibrium. 
+
+\subsubsection*{Case 2. Worker-Searcher, WLOG $l_m=1,l_f=0$} 
+Value function $W_m(w_m,b_f, a^J, a_m, a_f, \theta)$ satisfies \begin{align*}
+    \rho W_m(\cdot) =\max_{c,s_m}\bigg\{&u(c)-\kappa(s_m)+\delta_m[U(b_m,b_f,a^J,a_m,a_f,\theta)-W_m(\cdot)]\\&+s_m\gamma_m\int_{w_m}^{\overline{w}}\big[W_m(w,b_f,a^J,a_m,a_f,\theta)-W_m(\cdot)\big]dF_m(w)\\&+\lambda_f\int_{\underline{w}}^{\overline{w}}\max\big\{E(w_m,w,a^J,a_m,a_f,\theta)-W_m(\cdot),W_f(b_m,w,a^J,a_m,a_f,\theta)-W_m(\cdot),0\big\}dF_f(w)\\&+\mu_m\int\big[W_m(w_m,b_f,a^J,a_m+z,a_f,\theta)-W_m(\cdot)\big]dG_m(z)\\&+\mu_f\int\big[W_m(w_m,b_f,a^J,a_m,a_f+z,\theta)-W_m(\cdot)\big]dG_f(z)\\&+\pi\left(V_m^D+V_f^D-W_m(\cdot)\right) + [ra + y - c] W_{a,m}(\cdot) \bigg\}.
+\end{align*} The employed spouse chooses on-the-job search intensity $s_m$ to trade off between paying the search cost $\kappa(s_m)$ and having a greater probability of receiving a job offer. Upon paying the search cost $\kappa(s_m)$, they sample job offers at rate $s_m \gamma_m$. When the employed spouse gets a job offer, they accept if the offered wage is above their current wage. When the unemployed spouse gets a job offer, they can accept such that both spouses work, they can accept and the employed spouse may quit their job (the breadwinner cycle from \cite{GULER2012352}), or they can reject and remain unemployed. 
+
+From the FOC, the optimal on-the-job search intensity is given by \begin{equation*}
+    \kappa'(s_m(w_m))=\gamma_m\int_{w_m}^{\overline{w}}\big[W_m(w,b_f,a^J,a_m,a_f,\theta)-W_m(\cdot)\big]dF_m(w)
+\end{equation*}
+and the optimal consumption satisfies,
+\[
+u'(c) = W_{a,m}(\cdot)
+\]
+
+\subsubsection*{Case 3. Dual-Employed, $l_m=l_f=1$}
+Value function $E(w_m,w_f,a^J,a_m,a_f,\theta)$ satisfies \begin{align*}
+    \rho E(\cdot)=\max_{c,s_m,s_f}\bigg\{&u(c)-\kappa(s_m)-\kappa(s_f)\\&+\delta_m\big[W_f(b_m,w_f,a^J,a_m,a_f,\theta)-E(\cdot)\big]\\&+\delta_f\big[W_m(w_m,b_f,a^J,a_m,a_f,\theta)-E(\cdot)\big]\\&+s_m\gamma_m\int_{w_m}^{\overline{w}}\max\big\{E(w,w_f,a^J,a_m,a_f,\theta)-E(\cdot),W_m(w,b_f,a^J,a_m,a_f,\theta)-E(\cdot),0\big\}dF_m(w)\\&+s_f\gamma_f\int_{w_f}^{\overline{w}}\max\big\{E(w_m,w,a^J,a_m,a_f,\theta)-E(\cdot),W_f(b_m,w,a^J,a_m,a_f,\theta)-E(\cdot),0\big\}dF_f(w)\\&+\mu_m\int\big[E(w_m,w_f,a^J,a_m+z,a_f,\theta)-E(\cdot)\big]dG_m(z)\\&+\mu_f\int\big[E(w_m,w_f,a^J,a_m,a_f+z,\theta)-E(\cdot)\big]dG_f(z)\\&+\pi\big[V_m^D(\cdot)+V_f^D(\cdot)-E(\cdot)] + [ra + y - c] E_a(\cdot) \bigg\}
+\end{align*}
+\subsubsection*{Divorce Value Functions}
+Upon divorce with regime $\theta$, each spouse becomes single and receives assets $a_i^D$. Under universal community property $\theta=O$, \begin{equation*}
+    a_i^D=\frac{1}{2}(1-\tau_O)(a^J+a_m+a_f),
+\end{equation*} and under limited community property $\theta=L$, \begin{equation*}
+    a_i^D=\frac{1}{2}a^J+a_i.
+\end{equation*} $\tau_\theta$ is the dissolution cost, or the fraction of assets destroyed in the divorce, and $\tau_O>\tau_L=0$. 
+
+\paragraph{Singles' Problem}
+The single-person value function for unemployment is given by $U_i(a)$ for gender $i$, \begin{align*}
+    \rho U_i^\text{sin}(a)=&\max_{c_i}\bigg\{u(c_i)+\lambda_i\int_{\underline{w}}^{\overline{w}}\max\{E_i^\text{sin}(w,a)-U_i^\text{sin}(\cdot),0\}dF_i(w) \\ &+ [ra + b_i - c_i] U_{a}^\text{sin}(a) + \eta\Big[(1-\chi) [U(\cdot) - U_i^\text{sin})] +\chi[W_{-i}(\cdot)-U_i^\text{sin}]\Big]\bigg\}
+\end{align*}
+where $[ra + b_i - c_i] U_{a}^\text{sin}(a)$ determines the additional value of the return on assets. Marriage arrives at rate $\eta$, which we assume to be exogenous and equivalent between singles and divorced individuals (for now). We assume that when $\eta$ shock hits, with probability $\chi$, the partner is employed and they become a worker-searcher couple. The first-order condition is,
+\[
+u'(c_i) = U_a^\text{sin}(a)
+\]
+
+The value of employment is given by $E_i(w,a)$,
+\begin{align*}
+    \rho E_i^\text{sin}(\cdot)&=\max_{c_i, s_i} \bigg\{ u(c_i)-\kappa(s_i)+\delta_i[U_i^\text{sin}(a)-E_i^\text{sin}(\cdot)]\\&\quad+s_i\gamma_i\int_{w}^{\overline{w}}\big(E_i^\text{sin}(w',a)-E_i^\text{sin}(\cdot)\big)dF_i(w')\\& + [ra + w - c]E_a^\text{sin}(w,a) + \eta \Big[\chi [E(\cdot) - E_i^\text{sin}] +(1-\chi)[W_{i}(\cdot)-E_i^\text{sin}]\Big]\bigg\}.
+\end{align*}
+We assume that once shock $\eta$ hits, the couple starts at dual employed stage. The singles' reservation wage $w_i^{R_\text{sin}}$ is such that $U_i^\text{sin}(a)=E_i^\text{sin}(w_i^{R_\text{sin}},a)$. The optimal search effort $s^*(w,a)$ is implicitly defined by \begin{align*}
+    \kappa'(s_i^*(w,a))=\gamma_i\int_{w}^{\overline{w}}\big(E_i^\text{sin}(w',a)-E_i^\text{sin}(w,a)\big)dF_i(w').
+\end{align*}
+The optimal consumption satisfies,
+\[
+u'(c_i) = E_a^\text{sin}(w,a)
+\]
+% ============================================================
+\subsection{Policy Functions}
+% ============================================================
+
+The policy functions are derived from the first-order conditions of the value functions. We collect them here for reference before moving to the flow equations.
+
+\subsubsection*{Consumption}
+In every state, the FOC with respect to consumption yields
+\[
+    u'(c^*) = V_a(\cdot)
+\]
+where $V_a$ is the partial derivative of the relevant value function with respect to the asset being consumed from (the joint account $a^J$ for couples, or the single account $a$ for singles). For CRRA utility $u(c) = \frac{c^{1-\sigma}}{1-\sigma}$, this gives
+\[
+    c^*(\cdot) = V_a(\cdot)^{-1/\sigma}.
+\]
+
+\subsubsection*{On-the-Job Search Intensity}
+For each employed agent (whether in a couple or single), the FOC with respect to search intensity $s_i$ gives
+\[
+    \kappa'(s_i^*) = \gamma_i \int_{w_i}^{\overline{w}_i} \bigl[V^+(w') - V(w_i)\bigr] \, dF_i(w'),
+\]
+where $V^+(w')$ is the value of the best option when an offer $w'$ is received (accept at both-employed, accept and spouse quits, or reject), and $V(w_i)$ is the current value. With the functional form $\kappa(s_i) = \kappa_0 s_i^{\kappa_1}$, the optimal search intensity is
+\[
+    s_i^* = \left(\frac{\gamma_i}{\kappa_0 \kappa_1} \int_{w_i}^{\overline{w}_i} \bigl[V^+(w') - V(w_i)\bigr] \, dF_i(w')\right)^{\!\frac{1}{\kappa_1 - 1}}.
+\]
+
+\subsubsection*{Reservation Wages}
+The reservation wage $w_i^R$ is defined by the indifference condition between accepting and rejecting a job offer. For the dual-unemployed couple,
+\begin{align*}
+    W_m(w_m^R, b_f, a^J, a_m, a_f, \theta) &= U(b_m, b_f, a^J, a_m, a_f, \theta), \\
+    W_f(b_m, w_f^R, a^J, a_m, a_f, \theta) &= U(b_m, b_f, a^J, a_m, a_f, \theta).
+\end{align*}
+For singles, $E_i^{\sin}(w_i^{R_{\sin}}, a) = U_i^{\sin}(a)$. In the presence of savings, these reservation wages are implicit functions of the full asset state $(a^J, a_m, a_f)$ or $a$. No closed-form expression exists in general; they must be computed numerically by root-finding on the discretized value functions at each grid point.
+
+\subsubsection*{Acceptance Sets and Breadwinner Regions}
+When the unemployed spouse in the worker-searcher state receives an offer $w$, the couple chooses among three options:
+\begin{enumerate}
+    \item \textit{Both work:} accept and enter dual-employed $E(w_m, w, \cdot)$.
+    \item \textit{Breadwinner cycle:} accept and the currently employed spouse quits, entering $W_f(w, \cdot)$ (or $W_m$, symmetrically).
+    \item \textit{Reject:} stay in the current worker-searcher state $W_m(\cdot)$.
+\end{enumerate}
+The acceptance set $\mathcal{A}_f^{EE}(w_m, \cdot)$ is the set of offers $w$ such that option (i) dominates. The breadwinner region $\mathcal{BW}(w_m, \cdot)$ is the set where option (ii) dominates. These are determined by direct comparison of the value functions on the grid and are asset-state dependent.
+
+
+% ============================================================
+\subsection{Kolmogorov Forward Equations (Flow Equations)}
+\label{sec:kfe}
+% ============================================================
+
+\subsubsection*{Overview: How to Derive a KFE}
+
+The Kolmogorov Forward Equation (KFE) describes how the distribution of agents across states evolves over time. In steady state, the distribution is constant, so the KFE says: the net change in the mass of agents at any point in the state space is zero. We derive it by tracking two fundamentally different types of movement.
+
+\paragraph{Type 1: Continuous drift.} Agents slide continuously through the state space due to savings (assets change) or on-the-job search (wages change). Consider a small interval $[a, a+da]$. The mass in this interval is $g(a)\,da$. Agents flow in through the left boundary at rate $\dot{a}(a)\cdot g(a)$ and out through the right boundary at rate $\dot{a}(a+da)\cdot g(a+da)$. The net change is
+\[
+    \frac{\partial g}{\partial t}\,da = \dot{a}(a)\cdot g(a) - \dot{a}(a+da)\cdot g(a+da) = -\frac{\partial[\dot{a}\cdot g]}{\partial a}\,da.
+\]
+This gives the \textbf{divergence term}: $-\partial_a[\dot{a}\cdot g]$. Intuitively, this is a conservation law---if more probability ``current'' flows out of a region than flows in, the density drops.
+
+In our model, divergence terms appear for:
+\begin{itemize}
+    \item \textbf{Joint assets $a^J$:} drift is $\dot{a}^J = ra^J + y - c^*$ (savings). Divergence: $-\partial_{a^J}[(ra^J + y - c^*)\cdot h]$.
+    \item \textbf{Individual assets $a_i$:} drift is $\dot{a}_i = ra_i$ (interest only, no active saving). Divergence: $-r\,\partial_{a_i}[a_i\cdot h]$.
+    \item \textbf{Wages $w_i$ (on-the-job search):} an employed agent at wage $w$ who searches at intensity $s_i$ ``climbs'' the job ladder. The effective drift velocity is $s_i^*\gamma_i f_i(w)[1-F_i(w)]$: the search rate times the probability and density of an improving offer. Divergence: $-\partial_{w_i}[s_i^*\gamma_i f_i(w_i)(1-F_i(w_i))\cdot h]$.
+\end{itemize}
+
+\paragraph{Type 2: Discrete jumps (Poisson events).} These are instantaneous transitions---job finding, job destruction, divorce, marriage, wealth shocks. Each event moves an agent from one state to another:
+\begin{itemize}
+    \item \textbf{Outflow from state $X$:} agents leave at rate $\alpha$, contributing $-\alpha \cdot g_X$ to the KFE for state $X$.
+    \item \textbf{Inflow to state $Y$:} the same agents arrive, contributing $+\alpha \cdot g_X$ to the KFE for state $Y$.
+\end{itemize}
+Mass is always conserved: every outflow from one state is an inflow to another.
+
+Wealth shocks require special attention. A shock at rate $\mu_i$ shifts the agent along the $a_i$ axis by a random amount $z\sim G_i(z)$. The density at $a_i$ loses mass (the agent jumps away) and gains mass from agents at $a_i - z$ who received shock $z$:
+\[
+    \text{Net wealth-shock effect at } a_i = -\mu_i\cdot g(a_i) + \mu_i\int_0^{\min(a_i,\bar{z}_i)} g(a_i - z)\,dG_i(z).
+\]
+
+\paragraph{The recipe.} For any state with density $g$:
+\[
+    0 = \underbrace{-\partial_x[\dot{x}\cdot g]}_{\text{divergence}} \underbrace{- \textstyle\sum_k \alpha_k\cdot g}_{\text{Poisson outflows}} + \underbrace{\textstyle\sum_k (\text{inflow from other states})}_{\text{Poisson inflows}}.
+\]
+
+\paragraph{Connection to the HJB.} The KFE operator is the \textbf{adjoint} (transpose) of the HJB operator. This follows from integration by parts: the drift term $\dot{a}\cdot V'(a)$ in the HJB becomes $-\partial_a[\dot{a}\cdot g(a)]$ in the KFE. Computationally, once the matrix $A$ is built for the HJB via the upwind finite-difference scheme, the KFE matrix is simply $A^\top$:
+\begin{align*}
+    \text{HJB:} \quad (\rho I - A)\,V &= u \\
+    \text{KFE:} \quad A^\top g &= 0.
+\end{align*}
+
+% ============================================================
+\subsubsection*{Notation}
+% ============================================================
+
+Define the following densities:
+\begin{align*}
+    h_\theta^{UU}(a^J, a_m, a_f) &\equiv \text{density of dual-unemployed couples under regime } \theta, \\
+    h_\theta^{Wm}(w_m, a^J, a_m, a_f) &\equiv \text{density of worker-searcher couples ($m$ employed)}, \\
+    h_\theta^{Wf}(w_f, a^J, a_m, a_f) &\equiv \text{density of worker-searcher couples ($f$ employed)}, \\
+    h_\theta^{EE}(w_m, w_f, a^J, a_m, a_f) &\equiv \text{density of dual-employed couples}, \\
+    g_i^U(a) &\equiv \text{density of unemployed singles, gender } i, \\
+    g_i^E(w, a) &\equiv \text{density of employed singles, gender } i.
+\end{align*}
+
+% ============================================================
+\subsubsection*{KFE 1: Dual-Unemployed Couples, $h_\theta^{UU}(a^J, a_m, a_f)$}
+% ============================================================
+
+\begin{align}
+    0 &= \underbrace{-\partial_{a^J}\!\Big[(ra^J + b_m + b_f - c^*)\cdot h_\theta^{UU}\Big] - r\,\partial_{a_m}\!\Big[a_m\, h_\theta^{UU}\Big] - r\,\partial_{a_f}\!\Big[a_f\, h_\theta^{UU}\Big]}_{\text{(i) Divergence: drift in $(a^J, a_m, a_f)$ from savings and interest}} \notag\\[6pt]
+    &\quad \underbrace{- \Big[\lambda_m\big(1-F_m(w_m^R)\big) + \lambda_f\big(1-F_f(w_f^R)\big) + \mu_m + \mu_f + \pi\Big]\, h_\theta^{UU}}_{\text{(ii) Poisson outflows: job finding ($m$ or $f$), wealth shocks, divorce}} \notag\\[6pt]
+    &\quad + \underbrace{\delta_m \int_{\underline{w}_m}^{\overline{w}_m} h_\theta^{Wm}(w_m, a^J, a_m, a_f)\, dw_m + \delta_f \int_{\underline{w}_f}^{\overline{w}_f} h_\theta^{Wf}(w_f, a^J, a_m, a_f)\, dw_f}_{\text{(iii) Inflow from job destruction: $Wm\to UU$ and $Wf\to UU$}} \notag\\[6pt]
+    &\quad + \underbrace{\mu_m \int_0^{\min(a_m,\bar{z}_m)} h_\theta^{UU}(a^J, a_m - z, a_f)\, dG_m(z) + \mu_f \int_0^{\min(a_f,\bar{z}_f)} h_\theta^{UU}(a^J, a_m, a_f - z)\, dG_f(z)}_{\text{(iv) Wealth shock inflows: agents at $(a_i - z)$ who received shock $z$ arrive at $a_i$}} \notag\\[6pt]
+    &\quad + \underbrace{\mathcal{N}^{UU\leftarrow\text{mar}}(0, a_m, a_f;\theta)}_{\text{(v) Marriage inflow at $a^J=0$}}
+    \label{eq:KFE_UU}
+\end{align}
+
+\textbf{Term-by-term:}
+\begin{itemize}
+    \item[(i)] \textit{Divergence.} Agents continuously save (or dissave) into $a^J$ at rate $ra^J + b_m + b_f - c^*$, sliding along the $a^J$ axis. Individual accounts grow at rate $ra_i$ (interest only). The divergence captures the net flux of probability mass through each point.
+    \item[(ii)] \textit{Poisson outflows.} At rate $\lambda_m(1-F_m(w_m^R))$, spouse $m$ draws a wage above reservation and the couple transitions to $Wm$. Similarly for $f$. Wealth shocks move agents to a different $a_i$ (outflow from current position). Divorce at rate $\pi$ sends both spouses to single states.
+    \item[(iii)] \textit{Job destruction inflow.} When the employed spouse in a worker-searcher couple loses their job (rate $\delta_i$), the couple returns to dual-unemployed. We integrate over all wages $w_i$ since any $Wm$ couple can transition here.
+    \item[(iv)] \textit{Wealth shock inflow.} An agent who was at $a_i - z$ and received shock $z$ ``lands'' at $a_i$. This integral collects all such arrivals.
+    \item[(v)] \textit{Marriage inflow.} Two unemployed singles who marry enter the UU state with $a^J = 0$ and individual assets $(a_m, a_f)$ inherited from their single states: $\mathcal{N}^{UU\leftarrow\text{mar}}(0,a_m,a_f;\theta) = \eta\, g_m^U(a_m)\cdot\eta\, g_f^U(a_f)\cdot\mathbf{1}\{a^J = 0\}$. This is a point mass at $a^J = 0$, creating a boundary condition.
+\end{itemize}
+
+% ============================================================
+\subsubsection*{KFE 2: Worker-Searcher ($m$ employed), $h_\theta^{Wm}(w_m, a^J, a_m, a_f)$}
+% ============================================================
+
+\begin{align}
+    0 &= \underbrace{-\partial_{a^J}\!\Big[(ra^J + w_m + b_f - c^*)\cdot h_\theta^{Wm}\Big] - r\,\partial_{a_m}\!\Big[a_m\, h_\theta^{Wm}\Big] - r\,\partial_{a_f}\!\Big[a_f\, h_\theta^{Wm}\Big]}_{\text{(i) Divergence in assets}} \notag\\[6pt]
+    &\quad \underbrace{- \partial_{w_m}\!\Big[s_m^*\gamma_m f_m(w_m)(1-F_m(w_m))\cdot h_\theta^{Wm}\Big]}_{\text{(ii) Divergence in wages: $m$ climbs the job ladder via OTJ search}} \notag\\[6pt]
+    &\quad \underbrace{- \Big[\delta_m + s_m^*\gamma_m(1-F_m(w_m)) + \lambda_f\big(1-F_f(w_f^R)\big) + \mu_m + \mu_f + \pi\Big]\, h_\theta^{Wm}}_{\text{(iii) Poisson outflows: $m$'s job destroyed, $m$ accepts OTJ offer, $f$ finds job, shocks, divorce}} \notag\\[6pt]
+    &\quad + \underbrace{\mu_m \int_0^{\min(a_m,\bar{z}_m)} h_\theta^{Wm}(w_m, a^J, a_m-z, a_f)\, dG_m(z) + \mu_f \int_0^{\min(a_f,\bar{z}_f)} h_\theta^{Wm}(w_m, a^J, a_m, a_f-z)\, dG_f(z)}_{\text{(iv) Wealth shock inflows}} \notag\\[6pt]
+    &\quad + \underbrace{\lambda_m f_m(w_m)\,\mathbf{1}\{w_m \geq w_m^R\}\cdot h_\theta^{UU}(a^J, a_m, a_f)}_{\text{(v) Inflow from UU: $m$ drew wage $w_m$ above reservation}} \notag\\[6pt]
+    &\quad + \underbrace{\delta_f \int_{\underline{w}_f}^{\overline{w}_f} h_\theta^{EE}(w_m, w_f, a^J, a_m, a_f)\, dw_f}_{\text{(vi) Inflow from EE: $f$'s job destroyed, couple drops to $Wm$}} \notag\\[6pt]
+    &\quad + \underbrace{\mathcal{B}^{Wf\to Wm}(w_m, a^J, a_m, a_f;\theta)}_{\text{(vii) Breadwinner inflow from $Wf$}} + \underbrace{\mathcal{N}^{Wm\leftarrow\text{mar}}(w_m, 0, a_m, a_f;\theta)}_{\text{(viii) Marriage inflow at $a^J=0$}}
+    \label{eq:KFE_Wm}
+\end{align}
+
+\textbf{Term-by-term:}
+\begin{itemize}
+    \item[(i)] \textit{Asset divergence.} Same logic as UU, but household income is now $w_m + b_f$ (one earner).
+    \item[(ii)] \textit{Wage divergence.} On-the-job search creates a continuous upward flow along the wage axis. At wage $w_m$, the ``velocity'' is $s_m^*\gamma_m f_m(w_m)(1-F_m(w_m))$: search effort $\times$ offer rate $\times$ probability the offer exceeds $w_m$ $\times$ density. This term captures the job ladder---employed agents continuously move to better wages.
+    \item[(iii)] \textit{Poisson outflows.} $\delta_m$: $m$ loses job $\to$ UU. $s_m^*\gamma_m(1-F_m(w_m))$: $m$ accepts a better offer (exits this $(w_m)$ cell---captured by the wage divergence, but also appears as a discrete rate). $\lambda_f(1-F_f(w_f^R))$: $f$ finds a job $\to$ EE. Plus wealth shocks and divorce.
+    \item[(v)] \textit{UU inflow.} A dual-unemployed couple where $m$ draws wage exactly $w_m$ (from density $f_m(w_m)$) and it exceeds reservation. The couple transitions UU $\to$ Wm.
+    \item[(vi)] \textit{EE inflow.} A dual-employed couple where $f$ loses her job (rate $\delta_f$) drops to Wm. We integrate over all $w_f$ since $f$'s wage is lost.
+    \item[(vii)] \textit{Breadwinner inflow.} In the $Wf$ state, $m$ receives an offer $w_m$ and the couple prefers $m$ working (and $f$ quitting) to both working:
+    \[
+        \mathcal{B}^{Wf\to Wm}(w_m, a^J, a_m, a_f;\theta) = \lambda_m f_m(w_m) \int_{\underline{w}_f}^{\overline{w}_f} \mathbf{1}\{w_m \in \mathcal{BW}_m(w_f,\cdot)\}\cdot h_\theta^{Wf}(w_f, a^J, a_m, a_f)\, dw_f.
+    \]
+    \item[(viii)] \textit{Marriage inflow.} A single employed $m$ at wage $w_m$ marries a single unemployed $f$, entering $Wm$ with $a^J = 0$.
+\end{itemize}
+
+The KFE for $h_\theta^{Wf}(w_f, a^J, a_m, a_f)$ is symmetric, exchanging $m\leftrightarrow f$.
+
+% ============================================================
+\subsubsection*{KFE 3: Dual-Employed Couples, $h_\theta^{EE}(w_m, w_f, a^J, a_m, a_f)$}
+% ============================================================
+
+\begin{align}
+    0 &= \underbrace{-\partial_{a^J}\!\Big[(ra^J + w_m + w_f - c^*)\cdot h_\theta^{EE}\Big] - r\,\partial_{a_m}\!\Big[a_m\, h_\theta^{EE}\Big] - r\,\partial_{a_f}\!\Big[a_f\, h_\theta^{EE}\Big]}_{\text{(i) Divergence in assets}} \notag\\[6pt]
+    &\quad \underbrace{- \partial_{w_m}\!\Big[s_m^*\gamma_m f_m(w_m)(1-F_m(w_m))\cdot h_\theta^{EE}\Big] - \partial_{w_f}\!\Big[s_f^*\gamma_f f_f(w_f)(1-F_f(w_f))\cdot h_\theta^{EE}\Big]}_{\text{(ii) Divergence in wages: both spouses climb the job ladder}} \notag\\[6pt]
+    &\quad \underbrace{- \Big[\delta_m + \delta_f + s_m^*\gamma_m(1-F_m(w_m)) + s_f^*\gamma_f(1-F_f(w_f)) + \mu_m + \mu_f + \pi\Big]\, h_\theta^{EE}}_{\text{(iii) Poisson outflows: job destruction ($m$ or $f$), OTJ offers, shocks, divorce}} \notag\\[6pt]
+    &\quad + \underbrace{\mu_m \int_0^{\min(a_m,\bar{z}_m)} h_\theta^{EE}(w_m, w_f, a^J, a_m-z, a_f)\, dG_m(z) + \mu_f(\cdots)}_{\text{(iv) Wealth shock inflows}} \notag\\[6pt]
+    &\quad + \underbrace{\lambda_f f_f(w_f)\,\mathbf{1}\{w_f \in \mathcal{A}_f^{EE}(w_m,\cdot)\}\cdot h_\theta^{Wm}(w_m, a^J, a_m, a_f)}_{\text{(v) Inflow from $Wm$: $f$ draws $w_f$ and both work}} \notag\\[6pt]
+    &\quad + \underbrace{\lambda_m f_m(w_m)\,\mathbf{1}\{w_m \in \mathcal{A}_m^{EE}(w_f,\cdot)\}\cdot h_\theta^{Wf}(w_f, a^J, a_m, a_f)}_{\text{(vi) Inflow from $Wf$: $m$ draws $w_m$ and both work}} \notag\\[6pt]
+    &\quad + \underbrace{\mathcal{N}^{EE\leftarrow\text{mar}}(w_m, w_f, 0, a_m, a_f;\theta)}_{\text{(vii) Marriage inflow at $a^J=0$}}
+    \label{eq:KFE_EE}
+\end{align}
+
+\textbf{Term-by-term:}
+\begin{itemize}
+    \item[(i)] Household income is now $w_m + w_f$ (two earners).
+    \item[(ii)] Both spouses search on the job, creating upward drift in both wage dimensions.
+    \item[(iii)] Either spouse can lose their job: $\delta_m$ sends EE $\to$ Wf, $\delta_f$ sends EE $\to$ Wm.
+    \item[(v)--(vi)] The unemployed spouse in a worker-searcher couple finds a job. The acceptance set $\mathcal{A}_f^{EE}(w_m,\cdot)$ is the set of $f$-offers such that both working (EE) dominates both the breadwinner cycle and rejection.
+    \item[(vii)] Two employed singles marry and enter EE with $a^J = 0$.
+\end{itemize}
+
+% ============================================================
+\subsubsection*{KFE 4: Unemployed Singles, $g_i^U(a)$}
+% ============================================================
+
+\begin{align}
+    0 &= \underbrace{-\partial_a\!\Big[(ra + b_i - c_i^*)\, g_i^U(a)\Big]}_{\text{(i) Divergence: savings drift}} \notag\\[6pt]
+    &\quad \underbrace{- \Big[\lambda_i\big(1-F_i(w_i^{R_{\sin}}(a))\big) + \mu_i + \eta\Big]\, g_i^U(a)}_{\text{(ii) Outflows: job finding, wealth shock, marriage}} \notag\\[6pt]
+    &\quad + \underbrace{\mu_i \int_0^{\min(a,\bar{z}_i)} g_i^U(a-z)\, dG_i(z)}_{\text{(iii) Wealth shock inflow}} \notag\\[6pt]
+    &\quad + \underbrace{\delta_i \int_{\underline{w}_i}^{\overline{w}_i} g_i^E(w,a)\, dw}_{\text{(iv) Job destruction inflow from employed singles}} \notag\\[6pt]
+    &\quad + \underbrace{\pi\cdot\mathcal{D}_i^{U\leftarrow\text{div}}(a)}_{\text{(v) Divorce inflow}}
+    \label{eq:KFE_Usin}
+\end{align}
+
+\textbf{Term-by-term:}
+\begin{itemize}
+    \item[(i)] \textit{Divergence.} The single unemployed agent saves at rate $ra + b_i - c_i^*$. Assets slide along the $a$-axis.
+    \item[(ii)] \textit{Outflows.} Job finding at rate $\lambda_i(1-F_i(w_i^{R_{\sin}}))$: only offers above the reservation wage are accepted, and acceptance moves the agent to $g_i^E$. Marriage at rate $\eta$. Wealth shock $\mu_i$ shifts the agent to a different asset level.
+    \item[(iii)] \textit{Wealth shock inflow.} Agents at $a - z$ who received shock $z$ arrive at $a$.
+    \item[(iv)] \textit{Job destruction.} An employed single at any wage $w$ who loses their job (rate $\delta_i$) becomes unemployed at the same asset level. We integrate over all wages.
+    \item[(v)] \textit{Divorce inflow.} Married individuals who were unemployed at the time of divorce enter the single-unemployed state. The post-divorce asset $a$ depends on the property regime:
+    \begin{itemize}
+        \item Under $\theta = O$: $a = \frac{(1-\tau_O)}{2}(a^J + a_m + a_f)$ (everything pooled and split).
+        \item Under $\theta = L$: $a = \frac{a^J}{2} + a_i$ (joint split equally, individual kept).
+    \end{itemize}
+    $\mathcal{D}_i^{U\leftarrow\text{div}}(a)$ aggregates over all couple states where spouse $i$ was unemployed and the post-divorce asset maps to $a$.
+\end{itemize}
+
+% ============================================================
+\subsubsection*{KFE 5: Employed Singles, $g_i^E(w, a)$}
+% ============================================================
+
+\begin{align}
+    0 &= \underbrace{-\partial_a\!\Big[(ra + w - c_i^*)\, g_i^E(w,a)\Big]}_{\text{(i) Divergence in assets}} \notag\\[6pt]
+    &\quad \underbrace{-\partial_w\!\Big[s_i^*(w,a)\,\gamma_i\, f_i(w)(1-F_i(w))\, g_i^E(w,a)\Big]}_{\text{(ii) Divergence in wages: on-the-job search, climbing the job ladder}} \notag\\[6pt]
+    &\quad \underbrace{- \Big[\delta_i + s_i^*(w,a)\gamma_i(1-F_i(w)) + \mu_i + \eta\Big]\, g_i^E(w,a)}_{\text{(iii) Outflows: job destruction, OTJ offer accepted, wealth shock, marriage}} \notag\\[6pt]
+    &\quad + \underbrace{\mu_i \int_0^{\min(a,\bar{z}_i)} g_i^E(w, a-z)\, dG_i(z)}_{\text{(iv) Wealth shock inflow}} \notag\\[6pt]
+    &\quad + \underbrace{\lambda_i f_i(w)\,\mathbf{1}\{w \geq w_i^{R_{\sin}}(a)\}\, g_i^U(a)}_{\text{(v) Inflow from unemployed singles: drew wage $w$ above reservation}} \notag\\[6pt]
+    &\quad + \underbrace{\pi\cdot\mathcal{D}_i^{E\leftarrow\text{div}}(w,a)}_{\text{(vi) Divorce inflow: was employed at $w$ in a couple}}
+    \label{eq:KFE_Esin}
+\end{align}
+
+\textbf{Term-by-term:}
+\begin{itemize}
+    \item[(i)] \textit{Asset divergence.} Income is $w$ (the wage), so drift is $ra + w - c^*$.
+    \item[(ii)] \textit{Wage divergence.} On-the-job search moves agents up the wage distribution. Same logic as for couples.
+    \item[(iii)] \textit{Outflows.} $\delta_i$: job destruction $\to g_i^U$. OTJ search: agent accepts a better offer and leaves this $(w)$ cell. Marriage $\eta$.
+    \item[(v)] \textit{UU$\to$E inflow.} An unemployed single draws wage $w$ from $F_i$ and accepts (wage above reservation).
+    \item[(vi)] \textit{Divorce inflow.} A married individual who was employed at wage $w$ becomes a single employed at the same wage, with post-divorce assets $a$.
+\end{itemize}
+
+% ============================================================
+\subsubsection*{Mass Conservation}
+% ============================================================
+
+The distributions must integrate to the total population of each gender (normalized to 1):
+\begin{equation}
+    \sum_\theta \int \Big[h_\theta^{UU} + h_\theta^{Wm} + h_\theta^{Wf} + h_\theta^{EE}\Big]\, d\mathbf{x} + \int g_i^U(a)\, da + \int\!\!\int g_i^E(w,a)\, dw\, da = 1 \quad \text{for each } i\in\{m,f\},
+    \label{eq:mass}
+\end{equation}
+where the integrals are over the full support of each density's state variables. Each couple contains one member of each gender, so couple densities are counted once in both the male and female mass constraints.
+
+\end{document}

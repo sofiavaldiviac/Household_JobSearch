@@ -1,0 +1,523 @@
+%% Model Setup: Full Specification for Numerical Solution
+%% Marital Insurance and Job Search: Evidence from Property Regime Reform
+%% Sofia Valdivia & Heleen Ren
+
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage[letterpaper, margin=1.2in]{geometry}
+\usepackage{amsmath, mathtools, mathrsfs}
+\usepackage{amssymb, bbm, bm}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\title{Model Setup: Marital Insurance and Job Search\\
+\large Full Specification for Numerical Solution}
+\author{Sofia Valdivia \& Heleen Ren}
+\date{\today}
+
+%% --- Convenience macros ---
+\newcommand{\aJ}{a^{J}}
+\newcommand{\aJbar}{\underline{a}^{J}}
+\newcommand{\abar}{\underline{a}}
+\newcommand{\wR}{w^{R}}
+\newcommand{\bR}{\mathbf{1}}
+\newcommand{\dF}{\,\mathrm{d}F}
+\newcommand{\dG}{\,\mathrm{d}G}
+\newcommand{\dw}{\,\mathrm{d}w}
+\newcommand{\da}{\,\mathrm{d}a}
+
+\begin{document}
+\maketitle
+%\tableofcontents
+%\newpage
+
+% ============================================================
+\section{Environment}
+% ============================================================
+
+Time is continuous and infinite. The economy is populated by a unit mass of individuals of each gender $i \in \{m,f\}$. Individuals are either \textit{single} or \textit{married}, and at each instant face one of two employment statuses: employed ($l_i = 1$) or unemployed ($l_i = 0$).
+
+\paragraph{Labor market.} Unemployed individuals receive job offers at Poisson rate $\lambda_i$, where wages are drawn from an exogenous and time-invariant distribution $F_i(w)$ with support $[\underline{w}_i, \overline{w}_i]$ and density $f_i(w)$. Employed individuals at wage $w$ face an exogenous job-destruction rate $\delta_i$. They can also search on the job: by exerting effort $s_i \geq 0$, they receive offers at rate $s_i \gamma_i$ (with $\gamma_i < \lambda_i$) at a flow cost $\kappa(s_i) = \kappa_0 s_i^{\kappa_1}$, $\kappa_1 > 1$. Unemployed individuals receive flow benefit $b_i$.
+
+\paragraph{Marital property regime.} Each married couple operates under one of two regimes, $\theta \in \{O, L\}$, determined at the time of marriage and fixed for the duration of the marriage:
+\begin{itemize}
+    \item $\theta = O$: \textit{universal (omvattend) community property} --- all assets (premarital and marital) are jointly owned and divided equally upon divorce (net of dissolution cost $\tau_O > 0$).
+    \item $\theta = L$: \textit{limited community property} --- only assets accumulated during marriage (in the joint account $\aJ$) are shared equally upon divorce; premarital assets and wealth shocks (inheritances, gifts) remain individual property.
+\end{itemize}
+Prior to 2018, the default regime in the Netherlands was $\theta = O$; after 2018, the default switched to $\theta = L$.
+
+\paragraph{Household assets.} Couples maintain three accounts:
+\begin{enumerate}
+    \item A \textit{joint account} $\aJ$: receives all marital savings.
+    \item \textit{Individual accounts} $a_m$, $a_f$: contain premarital wealth and any wealth shocks received during marriage. Regular savings do not flow into individual accounts.
+\end{enumerate}
+Total household wealth is $a = \aJ + a_m + a_f$. Singles maintain a single account $a$.
+
+\paragraph{Wealth shocks.} Each spouse receives a wealth shock (inheritance, gift, or asset appreciation) at Poisson rate $\mu_i$, where the shock size $z$ is drawn from distribution $G_i(z)$ on $[0, \overline{z}_i]$. Wealth shocks are always deposited into the individual account $a_i$, regardless of property regime.
+
+\paragraph{Parameters.} The common discount rate is $\rho$, the risk-free interest rate is $r$, and utility is strictly increasing and concave: $u'(c) > 0$, $u''(c) < 0$.
+
+
+% ============================================================
+\section{Savings Rule and Asset Dynamics}
+% ============================================================
+
+\subsection{Married couples}
+
+The key savings rule reflects Dutch law under both regimes: any active savings decision by the couple (wages net of consumption) flows into the joint account. Wealth shocks are assigned to the recipient's individual account and are not commingled.
+
+\medskip
+\noindent\textbf{Joint account:}
+\begin{equation}
+    \dot{a}^{J} = r \aJ + y(l_m, w_m, l_f, w_f) - c, \qquad \aJ \geq \aJbar
+    \label{eq:joint_law}
+\end{equation}
+where household income is
+\[
+    y = w_m \bR\{l_m=1\} + b_m \bR\{l_m=0\} + w_f \bR\{l_f=1\} + b_f \bR\{l_f=0\},
+\]
+and $c \geq 0$ is household consumption. The lower bound $\aJbar \leq 0$ is an exogenous borrowing limit.
+
+\medskip
+\noindent\textbf{Individual accounts} (between wealth shocks):
+\begin{equation}
+    \dot{a}_i = r\, a_i, \qquad i \in \{m, f\}
+    \label{eq:ind_law}
+\end{equation}
+Individual accounts grow at the risk-free rate between shocks; they receive no deposits from labor income. At Poisson times with rate $\mu_i$, the individual account jumps:
+\[
+    a_i \;\mapsto\; a_i + z, \qquad z \sim G_i(z).
+\]
+There is no lower bound imposed on individual accounts (premarital wealth cannot be negative by assumption), but we can set $a_i \geq 0$ without loss of generality if premarital assets are non-negative.
+
+\subsection{Single individuals}
+
+\begin{equation}
+    \dot{a} = r\,a + y(l, w) - c, \qquad a \geq \abar
+    \label{eq:single_law}
+\end{equation}
+where $\abar \leq 0$ is the borrowing limit. Wealth shocks arrive at rate $\mu_i$ and shift $a \mapsto a + z$.
+
+\subsection{Notation for drift vectors}
+
+For compactness, define the drift of the state vector for each household type as follows. For a couple in state $(l_m, l_f)$ with consumption policy $c^*$:
+\begin{align*}
+    \Phi^{\aJ}(\cdot) &\equiv r\aJ + y(l_m, w_m, l_f, w_f) - c^*(\cdot) \\
+    \Phi^{a_i}(\cdot) &\equiv r\, a_i
+\end{align*}
+These are the drift terms that enter the Kolmogorov Forward Equations (Section~\ref{sec:kfe}).
+
+
+% ============================================================
+\section{Property Regimes and Divorce Payoffs}
+% ============================================================
+
+Divorce arrives at an exogenous rate $\pi > 0$. Upon divorce, each spouse becomes single. Post-divorce asset allocation depends on the regime.
+
+\paragraph{Universal community property ($\theta = O$).}
+All assets are pooled and split equally, net of dissolution cost $\tau_O$:
+\begin{equation}
+    a_i^D = \tfrac{1}{2}(1 - \tau_O)\bigl(\aJ + a_m + a_f\bigr), \qquad i \in \{m, f\}.
+    \label{eq:divorce_O}
+\end{equation}
+
+\paragraph{Limited community property ($\theta = L$).}
+Joint assets are split equally; individual accounts are retained by their owner:
+\begin{equation}
+    a_m^D = \tfrac{1}{2}\aJ + a_m, \qquad a_f^D = \tfrac{1}{2}\aJ + a_f.
+    \label{eq:divorce_L}
+\end{equation}
+There is no dissolution cost under limited community property ($\tau_L = 0$).
+
+\paragraph{Post-divorce employment status.} Each spouse retains their employment status and wage at the time of divorce. A divorced individual who was employed at wage $w$ enters the single-employed state at wage $w$ with assets $a_i^D(\theta)$. A divorced unemployed individual enters the single-unemployed state with assets $a_i^D(\theta)$.
+
+
+% ============================================================
+\section{Value Functions}
+% ============================================================
+
+All value functions are written in steady state (no time subscripts). The state of a married couple is $(\aJ, a_m, a_f, \theta)$ augmented by employment statuses and wages. The state of a single is $(a)$ augmented by employment status and wage. We suppress $\theta$ in the notation when it is clear from context.
+
+\subsection{Coupled Households}
+
+\subsubsection{Case 1: Dual-Unemployed ($l_m = l_f = 0$)}
+
+The value function $U(\aJ, a_m, a_f; \theta)$ satisfies:
+\begin{align}
+    \rho\, U(\cdot) = \max_{c \geq 0} \bigg\{
+    &\; u(c) \notag\\
+    &+ \lambda_m \int_{\underline{w}_m}^{\overline{w}_m} \max\bigl\{W_m(w, \aJ, a_m, a_f;\theta) - U(\cdot),\; 0\bigr\} \dF_m(w) \notag\\
+    &+ \lambda_f \int_{\underline{w}_f}^{\overline{w}_f} \max\bigl\{W_f(w, \aJ, a_m, a_f;\theta) - U(\cdot),\; 0\bigr\} \dF_f(w) \notag\\
+    &+ \mu_m \int_0^{\overline{z}_m} \bigl[U(\aJ, a_m + z, a_f;\theta) - U(\cdot)\bigr] \dG_m(z) \notag\\
+    &+ \mu_f \int_0^{\overline{z}_f} \bigl[U(\aJ, a_m, a_f + z;\theta) - U(\cdot)\bigr] \dG_f(z) \notag\\
+    &+ \pi \bigl[V_m^D(\cdot;\theta) + V_f^D(\cdot;\theta) - U(\cdot)\bigr] \notag\\
+    &+ \Phi^{\aJ}_{UU} \cdot U_{\aJ}(\cdot)
+     + \Phi^{a_m}_{UU} \cdot U_{a_m}(\cdot)
+     + \Phi^{a_f}_{UU} \cdot U_{a_f}(\cdot)
+    \bigg\}
+    \label{eq:HJB_UU}
+\end{align}
+where $\Phi^{\aJ}_{UU} = r\aJ + b_m + b_f - c$, $\Phi^{a_m}_{UU} = r a_m$, $\Phi^{a_f}_{UU} = r a_f$.
+
+The first-order condition with respect to $c$ is:
+\begin{equation}
+    u'(c^*) = U_{\aJ}(\aJ, a_m, a_f;\theta)
+    \label{eq:FOC_UU}
+\end{equation}
+This defines the optimal consumption policy $c^* = (u')^{-1}(U_{\aJ})$.
+
+\paragraph{Reservation wages.} The dual-unemployed couple's reservation wages $\wR_m$ and $\wR_f$ solve:
+\begin{align*}
+    W_m(\wR_m, \aJ, a_m, a_f;\theta) &= U(\aJ, a_m, a_f;\theta) \\
+    W_f(\wR_f, \aJ, a_m, a_f;\theta) &= U(\aJ, a_m, a_f;\theta)
+\end{align*}
+Both reservation wages are functions of the full state $(\aJ, a_m, a_f;\theta)$.
+
+\subsubsection{Case 2: Worker-Searcher, WLOG $l_m = 1,\; l_f = 0$}
+
+The value function $W_m(w_m, \aJ, a_m, a_f;\theta)$ satisfies:
+\begin{align}
+    \rho\, W_m(\cdot) = \max_{c \geq 0,\; s_m \geq 0} \bigg\{
+    &\; u(c) - \kappa(s_m) \notag\\
+    &+ \delta_m \bigl[U(\aJ, a_m, a_f;\theta) - W_m(\cdot)\bigr] \notag\\
+    &+ s_m \gamma_m \int_{w_m}^{\overline{w}_m} \bigl[W_m(w, \aJ, a_m, a_f;\theta) - W_m(\cdot)\bigr] \dF_m(w) \notag\\
+    &+ \lambda_f \int_{\underline{w}_f}^{\overline{w}_f} \max\Bigl\{
+        E(w_m, w, \aJ, a_m, a_f;\theta) - W_m(\cdot), \notag\\
+    &\qquad\qquad\qquad\;\;\; W_f(w, \aJ, a_m, a_f;\theta) - W_m(\cdot),\; 0
+    \Bigr\} \dF_f(w) \notag\\
+    &+ \mu_m \int_0^{\overline{z}_m} \bigl[W_m(w_m, \aJ, a_m + z, a_f;\theta) - W_m(\cdot)\bigr] \dG_m(z) \notag\\
+    &+ \mu_f \int_0^{\overline{z}_f} \bigl[W_m(w_m, \aJ, a_m, a_f + z;\theta) - W_m(\cdot)\bigr] \dG_f(z) \notag\\
+    &+ \pi \bigl[V_m^D(\cdot;\theta) + V_f^D(\cdot;\theta) - W_m(\cdot)\bigr] \notag\\
+    &+ \Phi^{\aJ}_{Wm} \cdot (W_m)_{\aJ}(\cdot)
+     + \Phi^{a_m}_{Wm} \cdot (W_m)_{a_m}(\cdot)
+     + \Phi^{a_f}_{Wm} \cdot (W_m)_{a_f}(\cdot)
+    \bigg\}
+    \label{eq:HJB_Wm}
+\end{align}
+where $\Phi^{\aJ}_{Wm} = r\aJ + w_m + b_f - c$, $\Phi^{a_m}_{Wm} = r a_m$, $\Phi^{a_f}_{Wm} = r a_f$.
+
+The $\lambda_f$ integral reflects three options when f receives an offer $w$: (i) both work at $(w_m, w)$ --- value $E$; (ii) breadwinner cycle --- m quits, f works at $w$ --- value $W_f(w, \cdot)$; (iii) reject --- stay at $W_m$. The couple chooses whichever option yields the highest household value.
+
+First-order conditions:
+\begin{align}
+    u'(c^*) &= (W_m)_{\aJ}(\cdot) \label{eq:FOC_Wm_c} \\
+    \kappa'(s_m^*) &= \gamma_m \int_{w_m}^{\overline{w}_m} \bigl[W_m(w, \aJ, a_m, a_f;\theta) - W_m(w_m, \cdot)\bigr] \dF_m(w) \label{eq:FOC_Wm_s}
+\end{align}
+The symmetric case $W_f(w_f, \cdot)$ (worker-searcher with $l_f=1, l_m=0$) is obtained by exchanging indices.
+
+\subsubsection{Case 3: Dual-Employed ($l_m = l_f = 1$)}
+
+The value function $E(w_m, w_f, \aJ, a_m, a_f;\theta)$ satisfies:
+\begin{align}
+    \rho\, E(\cdot) = \max_{c \geq 0,\; s_m,s_f \geq 0} \bigg\{
+    &\; u(c) - \kappa(s_m) - \kappa(s_f) \notag\\
+    &+ \delta_m \bigl[W_f(w_f, \aJ, a_m, a_f;\theta) - E(\cdot)\bigr] \notag\\
+    &+ \delta_f \bigl[W_m(w_m, \aJ, a_m, a_f;\theta) - E(\cdot)\bigr] \notag\\
+    &+ s_m \gamma_m \int_{w_m}^{\overline{w}_m} \max\Bigl\{
+        E(w, w_f, \aJ, a_m, a_f;\theta) - E(\cdot),\;
+        W_m(w, \aJ, a_m, a_f;\theta) - E(\cdot),\; 0
+    \Bigr\} \dF_m(w) \notag\\
+    &+ s_f \gamma_f \int_{w_f}^{\overline{w}_f} \max\Bigl\{
+        E(w_m, w, \aJ, a_m, a_f;\theta) - E(\cdot),\;
+        W_f(w, \aJ, a_m, a_f;\theta) - E(\cdot),\; 0
+    \Bigr\} \dF_f(w) \notag\\
+    &+ \mu_m \int_0^{\overline{z}_m} \bigl[E(w_m, w_f, \aJ, a_m + z, a_f;\theta) - E(\cdot)\bigr] \dG_m(z) \notag\\
+    &+ \mu_f \int_0^{\overline{z}_f} \bigl[E(w_m, w_f, \aJ, a_m, a_f + z;\theta) - E(\cdot)\bigr] \dG_f(z) \notag\\
+    &+ \pi \bigl[V_m^D(\cdot;\theta) + V_f^D(\cdot;\theta) - E(\cdot)\bigr] \notag\\
+    &+ \Phi^{\aJ}_{EE} \cdot E_{\aJ}(\cdot)
+     + \Phi^{a_m}_{EE} \cdot E_{a_m}(\cdot)
+     + \Phi^{a_f}_{EE} \cdot E_{a_f}(\cdot)
+    \bigg\}
+    \label{eq:HJB_EE}
+\end{align}
+where $\Phi^{\aJ}_{EE} = r\aJ + w_m + w_f - c$. The OTJ offer terms for the dual-employed case allow for the same ``breadwinner'' option: e.g., when m receives an offer $w$, the couple may prefer that m accepts and f quits, yielding $W_m(w, \cdot)$.
+
+First-order conditions:
+\begin{align}
+    u'(c^*) &= E_{\aJ}(\cdot) \\
+    \kappa'(s_i^*) &= \gamma_i \int_{w_i}^{\overline{w}_i} \max\Bigl\{E_i(w, \cdot) - E(\cdot),\; 0\Bigr\} \dF_i(w), \quad i \in \{m,f\}
+\end{align}
+where $E_m(w, \cdot) \equiv \max\{E(w, w_f, \cdot), W_m(w, \cdot)\}$ captures the best option available when m receives an on-the-job offer $w$.
+
+\subsection{Divorce Value Functions}
+
+Upon divorce, each spouse transitions to single status with assets determined by $\theta$ (equations \eqref{eq:divorce_O}--\eqref{eq:divorce_L}). Let $V_i^D(\aJ, a_m, a_f; l_i, w_i; \theta)$ denote the value to spouse $i$ of divorcing from the current state. It equals the single-individual value function evaluated at the post-divorce asset level:
+\begin{equation}
+    V_i^D(\cdot) = \begin{cases}
+        U_i^{\sin}\!\bigl(a_i^D(\theta)\bigr) & \text{if } l_i = 0 \\
+        E_i^{\sin}\!\bigl(w_i,\; a_i^D(\theta)\bigr) & \text{if } l_i = 1
+    \end{cases}
+    \label{eq:divorce_value}
+\end{equation}
+
+\subsection{Single Individuals}
+
+Let $i \in \{m, f\}$ index gender. The single-individual value functions are:
+
+\paragraph{Unemployed single.}
+\begin{align}
+    \rho\, U_i^{\sin}(a) = \max_{c \geq 0} \bigg\{
+    &\; u(c)
+    + \lambda_i \int_{\underline{w}_i}^{\overline{w}_i} \max\bigl\{E_i^{\sin}(w, a) - U_i^{\sin}(a),\; 0\bigr\} \dF_i(w) \notag\\
+    &+ \mu_i \int_0^{\overline{z}_i} \bigl[U_i^{\sin}(a + z) - U_i^{\sin}(a)\bigr] \dG_i(z) \notag\\
+    &+ \eta \bigl[\mathcal{M}_i^{U}(a) - U_i^{\sin}(a)\bigr] \notag\\
+    &+ (ra + b_i - c)\, (U_i^{\sin})'(a)
+    \bigg\}
+    \label{eq:HJB_Usin}
+\end{align}
+The term $\mathcal{M}_i^U(a)$ is the expected value of entering marriage from the unemployed state, defined in Section~\ref{sec:matching} below.
+
+The first-order condition is $u'(c^*) = (U_i^{\sin})'(a)$, and the reservation wage $\wR_i^{\sin}(a)$ solves $E_i^{\sin}(\wR_i^{\sin}(a), a) = U_i^{\sin}(a)$.
+
+\paragraph{Employed single.}
+\begin{align}
+    \rho\, E_i^{\sin}(w, a) = \max_{c \geq 0,\; s_i \geq 0} \bigg\{
+    &\; u(c) - \kappa(s_i)
+    + \delta_i \bigl[U_i^{\sin}(a) - E_i^{\sin}(w, a)\bigr] \notag\\
+    &+ s_i \gamma_i \int_w^{\overline{w}_i} \bigl[E_i^{\sin}(w', a) - E_i^{\sin}(w, a)\bigr] \dF_i(w') \notag\\
+    &+ \mu_i \int_0^{\overline{z}_i} \bigl[E_i^{\sin}(w, a + z) - E_i^{\sin}(w, a)\bigr] \dG_i(z) \notag\\
+    &+ \eta \bigl[\mathcal{M}_i^{E}(w, a) - E_i^{\sin}(w, a)\bigr] \notag\\
+    &+ (ra + w - c)\, (E_i^{\sin})_a(w, a)
+    \bigg\}
+    \label{eq:HJB_Esin}
+\end{align}
+First-order conditions:
+\begin{align}
+    u'(c^*) &= (E_i^{\sin})_a(w, a) \\
+    \kappa'(s_i^*) &= \gamma_i \int_w^{\overline{w}_i} \bigl[E_i^{\sin}(w', a) - E_i^{\sin}(w, a)\bigr] \dF_i(w')
+\end{align}
+
+
+% ============================================================
+\section{Marriage Matching}
+\label{sec:matching}
+% ============================================================
+
+\paragraph{Random matching.} Each single individual receives a marriage offer at exogenous Poisson rate $\eta$. When a marriage offer arrives, the prospective spouse is drawn at random from the current distribution of singles of the opposite gender (proportional to their steady-state mass). We assume both parties must agree to marry (Nash bargaining over the gains from marriage), but for a first-pass we assume all matches are accepted if both parties gain.
+
+\paragraph{Initial conditions upon marriage.} When a single $m$ with assets $a_m$ and employment state $(l_m, w_m)$ marries a single $f$ with assets $a_f$ and employment state $(l_f, w_f)$:
+\begin{itemize}
+    \item The joint account starts empty: $\aJ_0 = 0$.
+    \item Each spouse's premarital assets become their individual account: $(a_m, a_f)$.
+    \item The property regime is $\theta = O$ for marriages before 2018 and $\theta = L$ for marriages after 2018 (or can be set as an assignment rule in calibration).
+    \item The couple enters the appropriate employment state based on $(l_m, l_f)$.
+\end{itemize}
+
+\paragraph{Marriage value terms.} For an unemployed single $i$ with assets $a$, the value of a marriage offer is:
+\begin{equation}
+    \mathcal{M}_i^U(a) = \int U\bigl(0,\, a,\, a_j,\; \theta\bigr)\, \mathrm{d}\Psi_j^U(a_j) + \int U\bigl(0,\, a,\, a_j,\; \theta\bigr)\, \mathrm{d}\Psi_j^E(a_j)
+    \label{eq:marriage_U}
+\end{equation}
+where $\Psi_j^U$ and $\Psi_j^E$ are the steady-state marginal asset distributions of unemployed and employed singles of gender $j \neq i$. In practice, the integrals are computed over both possible employment states of the matched partner, weighting by the share of unemployed vs.\ employed singles. For an employed single $i$ at wage $w$, $\mathcal{M}_i^E(w, a)$ is defined analogously, integrating over the couple states consistent with $(l_i=1, w_i=w)$. Because the partner is drawn from the steady-state distribution, these terms depend on equilibrium objects and must be computed iteratively.
+
+
+% ============================================================
+\section{Kolmogorov Forward Equations}
+\label{sec:kfe}
+% ============================================================
+
+In steady state, the distributions of agents across states are time-invariant. We write the Kolmogorov Forward Equations (KFEs) --- equivalently, the Fokker-Planck equations --- for each state. For each state, the KFE equates the net flux into the state to zero.
+
+\paragraph{Notation.} Define:
+\begin{align*}
+    h_\theta^{UU}(\aJ, a_m, a_f) &\equiv \text{density of UU couples under regime } \theta \\
+    h_\theta^{Wm}(w_m, \aJ, a_m, a_f) &\equiv \text{density of WS$_m$ couples under regime } \theta \\
+    h_\theta^{Wf}(w_f, \aJ, a_m, a_f) &\equiv \text{density of WS$_f$ couples under regime } \theta \\
+    h_\theta^{EE}(w_m, w_f, \aJ, a_m, a_f) &\equiv \text{density of EE couples under regime } \theta \\
+    g_i^U(a) &\equiv \text{density of unemployed singles, gender } i \\
+    g_i^E(w, a) &\equiv \text{density of employed singles, gender } i
+\end{align*}
+
+Let $\wR_m^{UU}(\aJ, a_m, a_f)$ denote the reservation wage of gender $m$ in the dual-unemployed state (and similarly for other states). Let $\mathcal{A}_f(w_f \mid w_m, \cdot)$ denote the acceptance set for the unemployed spouse $f$ when $m$ is employed at $w_m$ in the WS$_m$ case (the set of $w_f$ such that EE or breadwinner is preferred to staying in WS$_m$).
+
+\subsection{Couple KFEs}
+
+\subsubsection{Dual-Unemployed: $h_\theta^{UU}(\aJ, a_m, a_f)$}
+
+\begin{align}
+    0 &= -\partial_{\aJ}\!\Bigl[\Phi^{\aJ}_{UU}(\cdot)\cdot h_\theta^{UU}\Bigr]
+        - r\,\partial_{a_m}\!\Bigl[a_m\, h_\theta^{UU}\Bigr]
+        - r\,\partial_{a_f}\!\Bigl[a_f\, h_\theta^{UU}\Bigr] \notag\\
+    &\quad - \Bigl[\lambda_m\bigl(1-F_m(\wR_m^{UU})\bigr) + \lambda_f\bigl(1-F_f(\wR_f^{UU})\bigr) + \mu_m + \mu_f + \pi\Bigr] h_\theta^{UU} \notag\\
+    &\quad + \mu_m \int_0^{\min(a_m,\overline{z}_m)} h_\theta^{UU}(\aJ, a_m - z, a_f)\, \dG_m(z)
+           + \mu_f \int_0^{\min(a_f,\overline{z}_f)} h_\theta^{UU}(\aJ, a_m, a_f - z)\, \dG_f(z) \notag\\
+    &\quad + \delta_m \int_{\underline{w}_m}^{\overline{w}_m} h_\theta^{Wm}(w_m, \aJ, a_m, a_f)\, \dw_m \notag\\
+    &\quad + \delta_f \int_{\underline{w}_f}^{\overline{w}_f} h_\theta^{Wf}(w_f, \aJ, a_m, a_f)\, \dw_f \notag\\
+    &\quad + \mathcal{B}_m^{Wm \to UU}(\aJ, a_m, a_f;\theta)
+           + \mathcal{B}_f^{Wf \to UU}(\aJ, a_m, a_f;\theta) \notag\\
+    &\quad + \mathcal{N}^{UU \leftarrow \text{mar}}(\aJ, a_m, a_f;\theta)
+    \label{eq:KFE_UU}
+\end{align}
+The first line is the divergence of the probability current (drift). The second line is the net outflow from job-finding, wealth shocks, and divorce. Lines three and four are inflows from job destruction in the WS states. The terms $\mathcal{B}$ capture breadwinner-cycle inflows where the employed spouse quits (making both unemployed if f's offer is also rejected). The term $\mathcal{N}$ captures inflows from newly married dual-unemployed couples, described below.
+
+\paragraph{Breadwinner inflow to UU from WS$_m$.} This occurs when f receives an offer $w_f < \wR_f^{Wm}$ (below reservation in the WS$_m$ state) AND the couple is already at state WS$_m$ with $m$ having quit. In the standard Guler et al.\ framework, the breadwinner cycle sends WS$_m$ to WS$_f$ (f accepts, m quits) rather than to UU --- so $\mathcal{B}$ terms entering UU from this channel are zero unless the couple rejects and m has already quit, which does not happen in equilibrium. We set $\mathcal{B}^{Wm \to UU} = 0$ and $\mathcal{B}^{Wf \to UU} = 0$ for simplicity; these terms would only arise if a quits happened prior to f's acceptance, which has measure zero in continuous time.
+
+\paragraph{Marriage inflow to UU.} Under random matching, newly married couples who are both unemployed at the time of marriage enter UU with $\aJ = 0$ and individual assets $(a_m, a_f)$ drawn from the single distributions:
+\begin{equation}
+    \mathcal{N}^{UU \leftarrow \text{mar}}(0, a_m, a_f;\theta) = \eta\, g_m^U(a_m) \cdot \eta\, g_f^U(a_f) \cdot \bR\{\aJ = 0\}
+    \label{eq:marriage_inflow_UU}
+\end{equation}
+This is a point mass at $\aJ = 0$, creating a boundary condition rather than a smooth density term.
+
+\subsubsection{Worker-Searcher ($m$ employed): $h_\theta^{Wm}(w_m, \aJ, a_m, a_f)$}
+
+\begin{align}
+    0 &= -\partial_{\aJ}\!\Bigl[\Phi^{\aJ}_{Wm}\cdot h_\theta^{Wm}\Bigr]
+        - r\,\partial_{a_m}\!\Bigl[a_m\, h_\theta^{Wm}\Bigr]
+        - r\,\partial_{a_f}\!\Bigl[a_f\, h_\theta^{Wm}\Bigr] \notag\\
+    &\quad - \partial_{w_m}\!\Bigl[s_m^* \gamma_m f_m(w_m) [1 - F_m(w_m)] \cdot h_\theta^{Wm}\Bigr] \notag\\
+    &\quad - \Bigl[\delta_m + s_m^*\gamma_m[1-F_m(w_m)] + \lambda_f\bigl(1-F_f(\wR_f^{Wm})\bigr) + \mu_m + \mu_f + \pi\Bigr] h_\theta^{Wm} \notag\\
+    &\quad + \mu_m \int_0^{\min(a_m,\overline{z}_m)} h_\theta^{Wm}(w_m, \aJ, a_m-z, a_f)\, \dG_m(z)
+           + \mu_f \int_0^{\min(a_f,\overline{z}_f)} h_\theta^{Wm}(w_m, \aJ, a_m, a_f-z)\, \dG_f(z) \notag\\
+    &\quad + \lambda_m f_m(w_m)\, \bR\{w_m \geq \wR_m^{UU}\}\cdot h_\theta^{UU}(\aJ, a_m, a_f) \notag\\
+    &\quad + \delta_f \int_{\underline{w}_f}^{\overline{w}_f} h_\theta^{EE}(w_m, w_f, \aJ, a_m, a_f)\, \dw_f \notag\\
+    &\quad + \mathcal{B}^{Wf \to Wm}(w_m, \aJ, a_m, a_f;\theta) \notag\\
+    &\quad + \mathcal{N}^{Wm \leftarrow \text{mar}}(w_m, 0, a_m, a_f;\theta)
+    \label{eq:KFE_Wm}
+\end{align}
+
+\noindent \textbf{Line-by-line explanation:}
+\begin{itemize}
+    \item \textit{Line 1:} Probability flux from drift in $(\aJ, a_m, a_f)$.
+    \item \textit{Line 2:} Upward drift in the wage distribution from on-the-job search (m accepts better offer and climbs the job ladder).
+    \item \textit{Line 3:} Outflows --- m's job destroyed ($\delta_m$); m accepts OTJ offer ($s_m^* \gamma_m [1-F_m(w_m)]$); f finds job ($\lambda_f$); wealth shocks; divorce.
+    \item \textit{Line 4:} Wealth shock inflows (back-shifts in $a_m$ or $a_f$).
+    \item \textit{Line 5:} Inflow from UU --- m drew wage $w_m$ above reservation.
+    \item \textit{Line 6:} Inflow from EE --- f's job destroyed, couple moves to WS$_m$ (m stays at $w_m$).
+    \item $\mathcal{B}^{Wf \to Wm}$: Breadwinner inflow --- in state WS$_f$, m gets an offer, and the couple chooses to have m work and f quit, entering WS$_m$ at $w_m$.
+    \item $\mathcal{N}^{Wm}$: Newly married couples where m is employed at $w_m$ and f is unemployed (initial $\aJ = 0$).
+\end{itemize}
+
+The breadwinner inflow term is:
+\begin{equation}
+    \mathcal{B}^{Wf \to Wm}(w_m, \aJ, a_m, a_f;\theta)
+    = \lambda_m f_m(w_m) \int_{\underline{w}_f}^{\overline{w}_f}
+        \bR\{w_m \in \mathcal{BW}_m(w_f, \cdot)\} \cdot h_\theta^{Wf}(w_f, \aJ, a_m, a_f)\, \dw_f
+    \label{eq:breadwinner_Wm}
+\end{equation}
+where $\mathcal{BW}_m(w_f, \cdot)$ is the set of $w_m$ offers for which the couple in WS$_f$ prefers to have m accept and f quit (rather than both working or rejecting).
+
+\paragraph{The WS$_f$ KFE} is symmetric to \eqref{eq:KFE_Wm} with $m$ and $f$ indices exchanged.
+
+\subsubsection{Dual-Employed: $h_\theta^{EE}(w_m, w_f, \aJ, a_m, a_f)$}
+
+\begin{align}
+    0 &= -\partial_{\aJ}\!\Bigl[\Phi^{\aJ}_{EE}\cdot h_\theta^{EE}\Bigr]
+        - r\,\partial_{a_m}\!\Bigl[a_m\, h_\theta^{EE}\Bigr]
+        - r\,\partial_{a_f}\!\Bigl[a_f\, h_\theta^{EE}\Bigr] \notag\\
+    &\quad - \partial_{w_m}\!\Bigl[s_m^*\gamma_m f_m(w_m)[1-F_m(w_m)] \cdot h_\theta^{EE}\Bigr]
+           - \partial_{w_f}\!\Bigl[s_f^*\gamma_f f_f(w_f)[1-F_f(w_f)] \cdot h_\theta^{EE}\Bigr] \notag\\
+    &\quad - \Bigl[\delta_m + \delta_f
+        + s_m^*\gamma_m[1-F_m(w_m)]
+        + s_f^*\gamma_f[1-F_f(w_f)]
+        + \mu_m + \mu_f + \pi\Bigr] h_\theta^{EE} \notag\\
+    &\quad + \mu_m \int_0^{\min(a_m,\overline{z}_m)} h_\theta^{EE}(w_m, w_f, \aJ, a_m-z, a_f)\, \dG_m(z)
+           + \mu_f \int_0^{\min(a_f,\overline{z}_f)} h_\theta^{EE}(\ldots, a_f-z)\, \dG_f(z) \notag\\
+    &\quad + \lambda_f f_f(w_f) \cdot \bR\{w_f \in \mathcal{A}_f^{EE}(w_m, \cdot)\} \cdot h_\theta^{Wm}(w_m, \aJ, a_m, a_f) \notag\\
+    &\quad + \lambda_m f_m(w_m) \cdot \bR\{w_m \in \mathcal{A}_m^{EE}(w_f, \cdot)\} \cdot h_\theta^{Wf}(w_f, \aJ, a_m, a_f) \notag\\
+    &\quad + \mathcal{N}^{EE \leftarrow \text{mar}}(w_m, w_f, 0, a_m, a_f;\theta)
+    \label{eq:KFE_EE}
+\end{align}
+where $\mathcal{A}_f^{EE}(w_m, \cdot)$ is the set of f-offers such that the WS$_m$ couple prefers both to work (rather than breadwinner or reject), and symmetrically for $\mathcal{A}_m^{EE}$.
+
+\subsection{Single KFEs}
+
+\subsubsection{Unemployed singles: $g_i^U(a)$}
+
+\begin{align}
+    0 &= -\partial_a\!\Bigl[(ra + b_i - c_i^*)\, g_i^U(a)\Bigr] \notag\\
+    &\quad - \Bigl[\lambda_i (1 - F_i(\wR_i^{\sin}(a))) + \mu_i + \eta\Bigr] g_i^U(a) \notag\\
+    &\quad + \mu_i \int_0^{\min(a, \overline{z}_i)} g_i^U(a - z)\, \dG_i(z) \notag\\
+    &\quad + \delta_i \int_{\underline{w}_i}^{\overline{w}_i} g_i^E(w, a)\, \dw \notag\\
+    &\quad + \pi \cdot \mathcal{D}_i^{U \leftarrow \text{div}}(a) \notag\\
+    &\quad - \eta\, g_i^U(a)\quad \text{[outflow: marriage]}
+    \label{eq:KFE_Usin}
+\end{align}
+The divorce inflow $\mathcal{D}_i^{U \leftarrow \text{div}}(a)$ aggregates over all couple states in which spouse $i$ was unemployed and the post-divorce asset equals $a$:
+\begin{align}
+    \mathcal{D}_m^{U \leftarrow \text{div}}(a;\theta=O) &= \pi \sum_\theta \int\!\!\!\int\!\!\!\int
+        h_\theta^{UU}(\aJ, a_m', a_f') \cdot
+        \bR\!\bigl\{\tfrac{(1-\tau_O)}{2}(\aJ+a_m'+a_f') = a\bigr\}\,
+        d\aJ\, da_m'\, da_f' \notag\\
+    &\quad + \text{[analogous terms from } W_m, W_f, EE \text{ where } l_m=0\text{]}
+    \label{eq:divorce_inflow}
+\end{align}
+(Under $\theta = L$: replace the formula with $a^J/2 + a_m'$.) In practice, these indicator functions become Jacobian-weighted densities when the asset mapping is injective, enabling numerical evaluation.
+
+\subsubsection{Employed singles: $g_i^E(w, a)$}
+
+\begin{align}
+    0 &= -\partial_a\!\Bigl[(ra + w - c_i^*)\, g_i^E(w, a)\Bigr] \notag\\
+    &\quad - \partial_w\!\Bigl[s_i^*(w,a)\, \gamma_i\, f_i(w)\, [1-F_i(w)]\, g_i^E(w,a)\Bigr] \notag\\
+    &\quad - \Bigl[\delta_i + s_i^*(w,a)\gamma_i[1-F_i(w)] + \mu_i + \eta\Bigr] g_i^E(w, a) \notag\\
+    &\quad + \mu_i \int_0^{\min(a,\overline{z}_i)} g_i^E(w, a-z)\, \dG_i(z) \notag\\
+    &\quad + \lambda_i f_i(w)\, \bR\{w \geq \wR_i^{\sin}(a)\}\, g_i^U(a) \notag\\
+    &\quad + \pi \cdot \mathcal{D}_i^{E \leftarrow \text{div}}(w, a;\theta)
+    \label{eq:KFE_Esin}
+\end{align}
+The divorce inflow $\mathcal{D}_i^{E \leftarrow \text{div}}$ aggregates over couple states where $i$ was employed at wage $w$.
+
+\subsection{Mass conservation}
+
+The distributions must integrate to total population mass. Normalize total population of each gender to 1:
+\begin{align}
+    \sum_\theta \int \Bigl[
+        \int\!\!\!\int h_\theta^{UU}\, \da^J\, da_m\, da_f
+        + \int\!\!\!\int\!\!\!\int h_\theta^{Wm}\, dw_m\, \da^J\, da_m\, da_f + \ldots
+    \Bigr]
+    + \int g_m^U\, \da + \int\!\!\int g_m^E\, \dw\, \da &= 1 \label{eq:mass_m}
+\end{align}
+(and analogously for $f$). Because each couple contains one agent of each gender, couple densities are counted once in both the male and female mass constraints.
+
+
+% ============================================================
+\section{Stationary Equilibrium}
+% ============================================================
+
+\begin{definition}[Stationary Equilibrium]
+A stationary equilibrium consists of:
+\begin{enumerate}
+    \item \textbf{Value functions:} $\{U, W_m, W_f, E, V_m^D, V_f^D\}$ for couples and $\{U_m^{\sin}, U_f^{\sin}, E_m^{\sin}, E_f^{\sin}\}$ for singles satisfying the HJBs \eqref{eq:HJB_UU}--\eqref{eq:HJB_Esin}.
+    \item \textbf{Policy functions:} Consumption $c^*(\cdot)$, on-the-job search intensity $s_i^*(\cdot)$, and acceptance sets $\{\wR_i, \mathcal{A}_i^{EE}, \mathcal{BW}_i\}$ derived from the value functions.
+    \item \textbf{Stationary distributions:} $\{h_\theta^{UU}, h_\theta^{Wm}, h_\theta^{Wf}, h_\theta^{EE}, g_m^U, g_m^E, g_f^U, g_f^E\}$ satisfying the KFEs \eqref{eq:KFE_UU}--\eqref{eq:KFE_Esin} and mass constraints \eqref{eq:mass_m}.
+    \item \textbf{Marriage value terms:} $\{\mathcal{M}_i^U, \mathcal{M}_i^E\}$ consistent with the stationary distributions (equation \eqref{eq:marriage_inflow_UU}).
+    \item \textbf{Mutual consistency:} The policy functions that generate the distributions are the same policy functions that solve the HJBs.
+\end{enumerate}
+\end{definition}
+
+The equilibrium is partial, taking the wage offer distributions $F_i(w)$ as exogenous.
+
+
+% ============================================================
+\section{Notes on Numerical Solution}
+% ============================================================
+
+\paragraph{State space and dimensionality.} The highest-dimensional couple state is the EE distribution $h_\theta^{EE}(w_m, w_f, \aJ, a_m, a_f)$, which has 5 continuous dimensions (plus discrete $\theta$). The individual asset accounts $(a_m, a_f)$ appear in value functions only through the divorce payoff, which depends on their sum (under $\theta=O$) or individually (under $\theta=L$). This suggests two practical simplifications:
+\begin{itemize}
+    \item \textbf{Under $\theta = O$:} The divorce payoff depends only on total assets $a = \aJ + a_m + a_f$. One can track total individual assets $a_{mf} = a_m + a_f$ and their sum with joint assets, reducing dimensionality.
+    \item \textbf{Under $\theta = L$:} The divorce payoff depends on $(\aJ, a_m, a_f)$ separately. However, between wealth shocks, $a_m$ and $a_f$ grow deterministically. One approach is to track the initial premarital wealth $(a_m^0, a_f^0)$ at marriage and compute current individual assets as $a_i(t) = a_i^0 e^{rt} + \text{accumulated wealth shocks}$.
+\end{itemize}
+
+\paragraph{Recommended solution algorithm.}
+\begin{enumerate}
+    \item \textbf{Discretize} the state space: grids for $\aJ$, $a_m$, $a_f$, $a$ (singles), $w_m$, $w_f$.
+    \item \textbf{Solve the HJBs} using finite-difference methods (upwind scheme for the drift terms, following Achdou et al.\ 2022). Start with an initial guess for the value functions and iterate until convergence. In each iteration, the consumption and search policies follow directly from the envelope conditions.
+    \item \textbf{Compute acceptance thresholds} from the solved value functions: reservation wages, acceptance sets, and breadwinner regions.
+    \item \textbf{Solve the KFEs} given the policy functions. This is a linear system in the distributions; use sparse matrix methods.
+    \item \textbf{Update marriage value terms} $\mathcal{M}_i$ using the new distributions, and re-solve the HJBs if they have changed materially.
+    \item \textbf{Iterate} until the joint fixed point (value functions + distributions) converges.
+\end{enumerate}
+
+\paragraph{Boundary conditions.}
+At $\aJ = \aJbar$, consumption is constrained by the borrowing limit: $c^* \leq r\aJbar + y$ (no-flux condition). For singles, $c^* \leq r\abar + y$ at $a = \abar$. These become natural boundary conditions in the finite-difference scheme: the upwind drift at the borrowing constraint is zero.
+
+\paragraph{Marriage inflows as boundary injections.} Marriage inflows enter at $\aJ = 0$ with individual assets $(a_m, a_f)$ inherited from singles. In the discretized system, these appear as point-source terms at the $\aJ = 0$ grid node, distributed over the $(a_m, a_f)$ grid according to the convolution of single-agent distributions.
+
+\newpage
+\bibliographystyle{johd}
+\bibliography{bib}
+
+\end{document}

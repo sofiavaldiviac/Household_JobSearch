@@ -1,0 +1,261 @@
+% ============================================================
+% Presentation Script — Marital Insurance and Job Search
+% Side-by-side layout: Slide content | Speaking notes
+% ============================================================
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[margin=2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\definecolor{slideblue}{RGB}{0,51,102}
+\definecolor{rowgray}{RGB}{240,244,248}
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\title{\textbf{Presentation Script}\\
+\large Marital Insurance and Job Search: Evidence from Property Regime Reform\\
+\normalsize Sofia Valdivia \& Heleen Ren --- February 2026}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent\textbf{How to use:} Left column summarises what is on the slide.
+Right column is your speaking script. Aim for $\approx$1.5 minutes per slide.
+
+\vspace{1em}
+
+\begin{longtable}{L{6cm} L{10cm}}
+\toprule
+\textbf{\color{slideblue}Slide content} & \textbf{Speaking notes} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{\color{slideblue}Slide content (cont.)} & \textbf{Speaking notes (cont.)} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\small\itshape continued on next page\ldots}\\
+\endfoot
+\bottomrule
+\endlastfoot
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 1 — Title}}\\
+\textit{Marital Insurance and Job Search: Evidence from Property Regime Reform} &
+``Good [morning/afternoon]. I'm Sofia Valdivia, and today I'll present joint work with Heleen Ren on marital insurance and job search. The central question is whether the legal design of marriage — specifically the property regime — shapes how couples search for jobs. Our empirical setting is a 2018 Dutch reform that changed the default matrimonial property regime.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 2 — The Core Question}}\\
+\textit{Married individuals search for jobs differently:
+higher reservation wages,
+faster job-ladder climbing,
+greater risk-taking.
+Canonical explanation: spousal income provides insurance.
+But the literature treats this insurance as fixed.
+We ask: does the \emph{strength} of marital insurance matter?} &
+``Start with a well-established fact: married workers behave very differently in the labor market. They hold out for higher wages, climb the job ladder faster, and take on more labor market risk. The canonical explanation — going back to Guler, Guvenen \& Violante — is that the spouse's income acts as insurance. If you can rely on your partner's paycheck, you don't need to jump at the first offer you receive.
+
+But here's the gap: the existing literature treats marital insurance as a binary — you're either married or you're not. Nobody asks: what if the insurance \emph{within} marriage varies? That's exactly what we do. The matrimonial property regime is essentially the fine print of the marriage contract, and it determines how much financial risk couples actually pool.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 3 — Why a Structural Model?}}\\
+\textit{Reason 1: Marital insurance is unobservable — operates through expectations, divorce probability, and savings decisions. DiD cannot disentangle the channels.
+Reason 2: Job search is dynamic — reservation wages, search intensity, and unemployment duration are joint equilibrium objects.} &
+``You might ask: why not just run a difference-in-differences around the 2018 reform and call it a day? Two reasons.
+
+First, marital insurance is not directly observable. The reform changes what happens \emph{if} the couple divorces. But the effect on job search today operates through forward-looking expectations — couples internalize the divorce risk even while happily married. A reduced-form comparison can tell you something changed, but it can't tell you \emph{why}.
+
+Second, job search is inherently dynamic. Reservation wages, search intensity, and unemployment duration are all connected. When you change the property regime, you move all of these simultaneously. Only a structural model lets us discipline all the channels at once and run meaningful counterfactuals.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 4 — Dutch Matrimonial Property Regimes}}\\
+\textit{Two regimes: Universal CP (all assets jointly owned, default before 2018) vs.\ Limited CP (only assets acquired during marriage shared, default after 2018).
+Net effect: effective marital insurance falls.} &
+``Let me explain the institutional setting. Until 2018, the Dutch default was Universal Community Property — every asset, including premarital savings, inheritances, and gifts, was jointly owned and split equally upon divorce. Strong insurance.
+
+In January 2018, the default changed to Limited Community Property. Now only assets accumulated during the marriage are shared. Premarital assets, inheritances, and gifts remain with the individual spouse.
+
+The key implication is that the reform weakens the financial insurance provided by marriage. A spouse who receives an inheritance is now shielded from sharing it if the marriage dissolves — but that also means the other spouse can no longer rely on that inheritance as a buffer.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 5 — The 2018 Reform as a Natural Experiment}}\\
+\textit{$\approx$80\% of couples stay on the default, no sorting.
+Treatment: post-2018 vs.\ pre-2018.
+Interaction: couples with larger individual wealth shocks face a bigger reduction in pooling.
+Illustrative example: an inheritance.} &
+``What makes this reform useful for identification? About 80\% of Dutch couples stay on whatever the default is — they don't opt into a marriage settlement. And the data show no evidence of sorting around 2018, meaning couples didn't strategically time their weddings in response to the change.
+
+This gives us a clean treatment: couples who married after January 2018 face the Limited regime; those who married before face Universal. The second layer of variation comes from individual wealth shocks like inheritances. Under Universal CP, an inheritance gets split at divorce. Under Limited CP, it stays with the recipient. Same inheritance, different insurance loss depending on the regime. This lets us trace the insurance channel separately from a simple pre-post level change.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 6 — Related Literature}}\\
+\textit{Table of five key papers: Guler et al.\ (2012), Mankart \& Oikonomou (2017), Pilossoph \& Wee (2021), Fern\'andez-Blanco (2022), Lise (2012) \& Wang (2019).
+Our departure: we vary insurance strength rather than comparing singles vs.\ couples.} &
+``Let me position us in the literature. We build directly on Guler, Guvenen \& Violante's joint-search model, where spousal income as insurance raises reservation wages. Pilossoph and Wee extend this and show income pooling also accelerates job-ladder climbing. Fernández-Blanco shows that the same insurance mechanism increases risk-taking.
+
+What's new here? All of these papers compare singles to couples — as if the insurance provided by marriage is fixed. We instead ask: what happens when you vary the \emph{degree} of that insurance within marriage? That's the contribution. The property regime is the lever.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 7 — Model: Overview}}\\
+\textit{Unitary couple, continuous time, infinite horizon.
+State space: $(w_m, w_f, a^J, a_m, a_f, l_m, l_f, \theta)$.
+Key primitives: $\delta_i, \lambda_i, \gamma_i, F_i, \kappa(\cdot), \mu_i, \pi$.} &
+``Now for the model. We model a unitary household — one decision maker — consisting of two spouses in continuous time. They maximize expected discounted utility over joint consumption.
+
+The state space captures everything relevant: both spouses' wages, the joint and individual asset holdings, their employment statuses, and the property regime $\theta$. This last element is the novel ingredient — $\theta$ enters every value function and governs how divorce payoffs are computed.
+
+On the right you can see the key primitives: job destruction and offer arrival rates, on-the-job search with a convex cost function borrowed from Lise and Wang, wealth shock arrival rates, and a Poisson divorce rate $\pi$.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 8 — Model: Three Employment Cases}}\\
+\textit{Diagram showing transitions between: Dual Unemployed, Worker-Searcher, Dual Employed.
+All cases coupled by joint savings and divorce threat.} &
+``The model has three employment cases depending on how many spouses work. We go from Dual Unemployed, to a Worker-Searcher pair — where one spouse is employed and also searches on the job — to Dual Employed. Job destruction moves the couple back down, and job offers move them up.
+
+What's important is that all three cases are coupled. The savings decision is always joint, and the threat of divorce is always present. The property regime $\theta$ affects the divorce payoff in each case, which in turn shapes search incentives throughout.
+
+You also see the breadwinner cycle from Guler et al.: an employed spouse may quit to allow the unemployed spouse to take a better-located offer. We incorporate that here too.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 9 — Model: Case 1 — Dual Unemployed}}\\
+\textit{Value function $U(\cdot)$ with job offer terms, wealth shock terms, and divorce term.
+Reservation wage $w_i^R$ defined by $W_i(w_i^R, \ldots) = U(\ldots)$.} &
+``In Case 1, both spouses are unemployed and searching. The value function looks standard: they consume, and good things can happen — either spouse can get a job offer — and bad things can happen, namely divorce arrives at rate $\pi$.
+
+The key object is the reservation wage, defined implicitly as the wage that makes a spouse indifferent between accepting and remaining unemployed. The insurance mechanism operates directly here: under Universal CP, the divorce payoff is generous and symmetric, so the value of staying unemployed is high, and the reservation wage is high. Under Limited CP, that divorce payoff shrinks for the lower-wealth spouse, which lowers the value of unemployment and therefore the reservation wage.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 10 — Model: Case 2 — Worker-Searcher}}\\
+\textit{Employed spouse also searches on-the-job at intensity $s_m$.
+FOC pins down optimal search intensity.
+Key: under Limited CP, a wealth shock to the unemployed spouse does not improve the employed spouse's divorce payoff — muting insurance.} &
+``Case 2 is the most interesting. One spouse is employed and also searches on the job to improve their wage. The FOC for optimal search intensity equates the marginal cost of search effort to the marginal expected gain from a better wage draw.
+
+Now here's the key mechanism. Under Universal CP, a wealth shock — say, an inheritance received by the unemployed spouse — gets pooled. It improves both spouses' divorce payoff, so it raises the value of the marriage state for both. That in turn strengthens the insurance buffer and encourages the employed spouse to search more ambitiously.
+
+Under Limited CP, that same inheritance stays individual. It doesn't improve the employed spouse's divorce payoff at all. The insurance benefit is muted, and on-the-job search intensity falls.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 11 — Model: Case 3 — Dual Employed}}\\
+\textit{Both spouses employed and searching on the job.
+Same structure as Case 2, extended symmetrically.} &
+``Case 3 extends the same logic to both spouses simultaneously. Both choose their on-the-job search intensities, taking into account that a better wage offer may come for either spouse — and that accepting it may trigger the breadwinner cycle. The divorce threat and the property regime continue to operate in the background through the continuation values.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 12 — Model: Divorce Value Functions}}\\
+\textit{Under $\theta = U$: $a_i^D = \frac{1}{2}(1-\tau_U)(a^J + a_m + a_f)$ — full pooling, higher dissolution costs.
+Under $\theta = L$: $a_i^D = \frac{1}{2}a^J + a_i$ — partial pooling.} &
+``This slide shows the precise heterogeneity introduced by the property regime. Upon divorce under Universal CP, all assets are pooled and split equally — minus dissolution costs $\tau_U$. So even if one spouse built up more individual savings, the other gets half.
+
+Under Limited CP, only the jointly-held savings are split. Each spouse keeps their own individual assets. The dissolution cost is zero here, but the insurance is weaker because wealth shocks that landed in an individual account never enter the divorce calculation. This asymmetry is what drives all the comparative statics we predict.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 13 — Model: Singles and Outside Option}}\\
+\textit{After divorce, each spouse becomes a single agent with assets $a_i^D$.
+Standard single-agent search model.
+Singles' reservation wage defined by $U_i^{\sin} = E_i^{\sin}(w_i^{R\sin}, a)$.} &
+``After divorce, each spouse solves a standard single-agent search problem, taking as given the assets they received under the regime. This is the outside option that feeds back into the married couple's value functions through $V_m^D$ and $V_f^D$.
+
+The reform changes $a_i^D$ under Limited CP, which propagates backward through all the married-couple value functions and alters search behavior throughout the entire marriage — not just at divorce. That propagation is invisible to reduced-form methods.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 14 — Comparative Statics}}\\
+\textit{When insurance weakens: $w_i^R\downarrow$, unemployment duration $\downarrow$, on-the-job search $\downarrow$, transitions to risky occupations $\downarrow$.
+Strongest for: high premarital wealth asymmetry, high divorce risk.} &
+``Putting the model together, when marital insurance weakens — as it does under Limited CP — four things happen. Reservation wages fall, so workers accept jobs faster and unemployment spells are shorter. On-the-job search intensity falls, meaning slower wage growth. And transitions into riskier occupations fall, as couples hedge against the reduced insurance buffer.
+
+These effects are strongest when there is high asymmetry in premarital wealth — because those are exactly the couples where Limited CP bites most — and when divorce risk is high, because anticipation of divorce matters more.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 15 — Data: DNB Household Survey}}\\
+\textit{Dutch panel, 2,000+ households/year since 1993.
+Self-reported reservation wages, unemployment duration, job-offer acceptance, transitions to self-employment.
+Wealth: joint vs.\ individual accounts, marital regime, inheritances.
+Limitation: sample shrinks after restricting to both spouses in labor force.} &
+``For data, we use the DNB Household Survey. It's a Dutch panel tracking over 2,000 households per year since 1993. What makes it uniquely suited to our question is that it has two things that are rarely observed together: granular job search behaviors — including self-reported reservation wages and job-offer acceptance decisions — and detailed wealth data that distinguishes joint from individual accounts.
+
+Importantly, it records whether a couple is married under the default regime or a prenuptial settlement. We can also see inheritances and gifts, which are critical for our second source of identification. The limitation is sample size: once we restrict to couples where both spouses participate in the labor force, and classify them into employment states, the sample shrinks substantially. That's why we plan to link the DHS to CBS microdata.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 16 — Data: CBS Microdata \& Linking Strategy}}\\
+\textit{CBS: full-population panel — wages, employment spells, tax records.
+Regional housing price indices (premarital asset appreciation).
+Sector unemployment rates (variation in $\lambda_i$, $\delta_i$).
+Linking: DHS for behavioral data, CBS for statistical power.} &
+``The CBS administrative microdata covers the entire Dutch population — wages, employment spells, firm identifiers, and tax records. This solves the sample size problem and gives us much richer measurement of wealth shocks.
+
+Particularly useful are regional housing price indices, which we can use to proxy premarital equity — a wealth shock that is individual under Limited CP but shared under Universal CP. And sector-level unemployment rates give us variation in job arrival and destruction rates across couples. The idea is that linking DHS's behavioral richness to CBS's statistical power gives us the best of both worlds.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 17 — Preliminary Data Patterns}}\\
+\textit{Fig.\ 1: Default (common property) $\approx$80\% across all years, no jump around 2018.
+Fig.\ 2: Distribution of marriage types stable over time.
+Both support exogeneity of the reform.} &
+``These preliminary patterns are reassuring for identification. The share of couples on the default regime is stable at around 80\% throughout the sample, and there is no visible discontinuity around 2018. If couples had sorted — choosing the new Limited default because they expected inheritances or had high premarital assets — we'd see a spike in the share opting into the new default. We don't. That supports the reform as an exogenous shift in the regime couples face.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slides 18--20 — Suggested Additional Data Work}}\\
+\textit{Eight proposed empirical exercises: staggered DiD, inheritance event study, continuous pooling treatment, cohabitors as control, housing wealth, gender asymmetry, sector interaction, precautionary savings.} &
+``Let me briefly walk through the additional empirical work we are planning. First, a staggered DiD using marriage cohort as treatment timing, tracing reservation wages and job-to-job transitions before and after the reform.
+
+Second, an inheritance event study: we identify households that receive an inheritance and track job search in event time, comparing the response under Universal versus Limited CP. The model predicts that under Universal, an inheritance should raise reservation wages, since it's insured. Under Limited, the effect should be smaller.
+
+Third, we can use the share of joint accounts as a continuous measure of insurance intensity within the regime. Beyond that, cohabiting couples — who have no property regime — serve as a natural `pure separate' benchmark. The housing wealth channel and gender asymmetry tests further refine identification of the insurance mechanism.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 21 — Counterfactual Analysis}}\\
+\textit{Five counterfactuals post-estimation: full reversion to Universal CP; shut down divorce risk; shut down wealth shocks; means-tested divorce floor; aggregate labor market effects.} &
+``Once the model is estimated, we plan five counterfactual exercises. The first restores Universal CP to post-2018 couples, recovering the welfare value of the old regime in terms of unemployment duration and wage growth. The second shuts down divorce risk entirely, isolating how much of the insurance mechanism works through the divorce threat versus income pooling during marriage. The third zeros out wealth shocks, asking how much of the regime effect runs through inheritances and gifts. The fourth tests a policy: would a public divorce asset floor — a minimum guaranteed wealth transfer — offset the welfare loss of moving to Limited CP? And finally, we embed the estimated responses in a search-and-matching framework to ask about aggregate unemployment and wage inequality.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 22 — Roadmap}}\\
+\textit{Step 1: DHS descriptives, event-study pre-trends, CBS linkage.
+Step 2: Solve model numerically, characterise predictions.
+Step 3: SMM estimation.
+Step 4: Counterfactuals and welfare.
+Step 5: Robustness.} &
+``In terms of where we are: we are currently at Step 1 — finalizing the DHS descriptive patterns and planning the CBS linkage. Step 2 is to solve the model numerically using value function iteration and characterize its qualitative predictions. Steps 3 through 5 cover estimation, counterfactuals, and robustness. We're happy to discuss any of these steps in more detail — particularly open questions around the unitary assumption and how to handle non-participation.'' \\[1em]
+
+% ------------------------------------------------------------------
+\rowcolor{slideblue!15}
+\multicolumn{2}{l}{\textbf{\color{slideblue}Slide 23 — Conclusion}}\\
+\textit{We ask whether the legal strength of marital insurance shapes job search.
+Exploit 2018 Dutch reform + inheritance shocks.
+Structural household search model with $\theta$ as a treatment parameter.
+Bottom line: marriage law is labor market policy.} &
+``Let me conclude. This paper asks a simple but under-explored question: does the legal design of marriage affect how couples search for jobs? We exploit a Dutch property regime reform and individual wealth shocks to provide causal evidence.
+
+The punchline is on the slide: marriage law is labor market policy. When you weaken asset pooling at divorce, couples start behaving more like singles — they lower their reservation wages, reduce on-the-job search, and take on less labor market risk — even while they are still married. A structural model is the only tool that can measure this anticipation effect.
+
+Thank you. I'm happy to take questions.'' \\
+
+\end{longtable}
+
+\end{document}

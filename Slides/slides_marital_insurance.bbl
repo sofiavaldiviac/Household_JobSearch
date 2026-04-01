@@ -1,0 +1,31 @@
+\begin{thebibliography}{3}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Fernández-Blanco(2022)]{FERNANDEZBLANCO2022105477}
+Javier Fernández-Blanco.
+\newblock Unemployment risks and intra-household insurance.
+\newblock \emph{Journal of Economic Theory}, 203:\penalty0 105477, 2022.
+\newblock ISSN 0022-0531.
+\newblock \doi{https://doi.org/10.1016/j.jet.2022.105477}.
+\newblock URL \url{https://www.sciencedirect.com/science/article/pii/S0022053122000679}.
+
+\bibitem[Guler et~al.(2012)Guler, Guvenen, and Violante]{GULER2012352}
+Bulent Guler, Fatih Guvenen, and Giovanni~L. Violante.
+\newblock Joint-search theory: New opportunities and new frictions.
+\newblock \emph{Journal of Monetary Economics}, 59\penalty0 (4):\penalty0 352--369, 2012.
+\newblock ISSN 0304-3932.
+\newblock \doi{https://doi.org/10.1016/j.jmoneco.2012.05.001}.
+\newblock URL \url{https://www.sciencedirect.com/science/article/pii/S0304393212000517}.
+
+\bibitem[Pilossoph and Wee(2021)]{pilossoph_wee}
+Laura Pilossoph and Shu~Lin Wee.
+\newblock Household search and the marital wage premium.
+\newblock \emph{American Economic Journal: Macroeconomics}, 13\penalty0 (4):\penalty0 55--109, October 2021.
+\newblock \doi{10.1257/mac.20180092}.
+\newblock URL \url{https://ideas.repec.org/a/aea/aejmac/v13y2021i4p55-109.html}.
+
+\end{thebibliography}

@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "matlab": {
+      "type": "stdio",
+      "command": "/Users/sofiavaldivia/Downloads/matlab-mcp-core-server",
+      "args": [
+        "--initial-working-folder",
+        "/Users/sofiavaldivia/Documents/GitHub/Household_JobSearch/Code/model",
+        "--matlab-display-mode",
+        "nodesktop",
+        "--disable-telemetry"
+      ],
+      "env": {}
+    }
+  }
+}
